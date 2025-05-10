@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://dt23sbgs426du"]
+
+[ext_resource type="PackedScene" uid="uid://ds2fj3awyna8w" path="res://Scenes/paddle.tscn" id="1_1ofa8"]
+
+[node name="main" type="Node"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="paddle" parent="." instance=ExtResource("1_1ofa8")]
+position = Vector2(120.628, 333.88)
+scale = Vector2(0.08, 0.08)
