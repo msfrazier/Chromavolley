@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dlnmvbn0h3ci8"]
+
+[ext_resource type="Script" path="res://Scenes/opponent.gd" id="1_w6uu6"]
+[ext_resource type="Texture2D" uid="uid://ni6ra4wkw381" path="res://Scenes/Sprites/paddle_1_mod.svg" id="2_sjgwo"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3uagd"]
+radius = 186.0
+height = 1026.0
+
+[node name="opponent" type="Area2D"]
+script = ExtResource("1_w6uu6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_sjgwo")
+flip_h = true
+
+[node name="opponent_col" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_3uagd")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_shape_entered" from="." to="." method="_on_area_shape_entered"]

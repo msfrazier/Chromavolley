@@ -1,6 +1,13 @@
-[gd_scene format=3 uid="uid://ccjxetdqucftp"]
+[gd_scene load_steps=5 format=3 uid="uid://dt23sbgs426du"]
+
+[ext_resource type="PackedScene" uid="uid://ds2fj3awyna8w" path="res://Scenes/paddle.tscn" id="1_1ofa8"]
+[ext_resource type="Script" path="res://Scenes/main.gd" id="1_gswkd"]
+[ext_resource type="PackedScene" uid="uid://fvkp33ljdmiu" path="res://Scenes/ball.tscn" id="2_jcuw7"]
+[ext_resource type="PackedScene" uid="uid://dlnmvbn0h3ci8" path="res://Scenes/opponent.tscn" id="4_1pma4"]
 
 [node name="main" type="Node"]
+script = ExtResource("1_gswkd")
+ball_scene = ExtResource("2_jcuw7")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -8,3 +15,26 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="paddle" parent="." instance=ExtResource("1_1ofa8")]
+position = Vector2(120, 324)
+scale = Vector2(0.08, 0.08)
+
+[node name="opponent" parent="." instance=ExtResource("4_1pma4")]
+position = Vector2(1032, 324)
+scale = Vector2(0.08, 0.08)
+
+[node name="ball" parent="." instance=ExtResource("2_jcuw7")]
+position = Vector2(576, 324)
+scale = Vector2(0.105, 0.105)
+
+[node name="start_timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[connection signal="hit" from="paddle" to="ball" method="_on_paddle_hit"]
+[connection signal="hit" from="opponent" to="ball" method="_on_paddle_hit"]
+[connection signal="scored" from="ball" to="." method="_on_ball_scored"]
+[connection signal="timeout" from="start_timer" to="." method="_on_start_timer_timeout"]
+[connection signal="timeout" from="start_timer" to="ball" method="_on_start_timer_timeout"]

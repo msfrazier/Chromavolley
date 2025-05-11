@@ -1,18 +1,20 @@
 [gd_scene load_steps=4 format=3 uid="uid://ds2fj3awyna8w"]
 
-[ext_resource type="Texture2D" uid="uid://ctuxf1pxtr060" path="res://Scenes/Sprites/paddle_1.svg" id="1_nm0yt"]
 [ext_resource type="Script" path="res://Scenes/paddle.gd" id="1_sm1q7"]
+[ext_resource type="Texture2D" uid="uid://ni6ra4wkw381" path="res://Scenes/Sprites/paddle_1_mod.svg" id="2_n1vv0"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wrbl7"]
-radius = 5.69979
-height = 30.6177
+radius = 186.0
+height = 1026.0
 
 [node name="paddle" type="Area2D"]
 script = ExtResource("1_sm1q7")
 
 [node name="paddle_sprite" type="Sprite2D" parent="."]
-texture = ExtResource("1_nm0yt")
+texture = ExtResource("2_n1vv0")
 
 [node name="paddle_col" type="CollisionShape2D" parent="."]
-scale = Vector2(33.51, 33.51)
 shape = SubResource("CapsuleShape2D_wrbl7")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_shape_entered" from="." to="." method="_on_area_shape_entered"]

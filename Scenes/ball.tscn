@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=3 uid="uid://fvkp33ljdmiu"]
+
+[ext_resource type="Texture2D" uid="uid://dutldgv14pkja" path="res://Scenes/Sprites/ball_mod.svg" id="1_ij7jc"]
+
+[sub_resource type="GDScript" id="GDScript_l3d5q"]
+script/source = "extends Area2D
+
+@export var speed = 300
+var screen_size
+var velocity = Vector2()
+var col_height
+var sprite_size
+
+signal scored
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	col_height = $ball_col.shape.radius
+	sprite_size = self.scale.y
+	
+	screen_size = get_viewport_rect().size
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	
+	if velocity.length() > 0:
+		velocity = velocity.normalized() * speed
+		
+	position += velocity * delta
+	position = position.clamp(Vector2(0,col_height*sprite_size), 
+	Vector2(screen_size.x,(screen_size.y-(col_height*sprite_size)))
+	)
+	
+	if position.x == 0 or position.x==screen_size.x:
+		scored.emit()
+		queue_free()
+	#print(position)
+	#print(col_height*sprite_size)
+	if position.y<=col_height*sprite_size or position.y >= floor((screen_size.y-(col_height*sprite_size))):
+		velocity = velocity.bounce(Vector2.UP)
+
+func _on_start_timer_timeout():
+	velocity = Vector2(
+		randf_range(0.5,1)*[1,-1].pick_random(),
+		randf_range(-(sqrt(3)/2),(sqrt(3)/2))
+		#-(sqrt(3)/2)
+	)
+
+
+func _on_paddle_hit(color,normal):
+	speed += 10
+	$Sprite2D.self_modulate = color
+	velocity = velocity.bounce(normal)
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6trme"]
+radius = 101.0
+
+[node name="ball" type="Area2D"]
+script = SubResource("GDScript_l3d5q")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0, 0, 0, 1)
+texture = ExtResource("1_ij7jc")
+
+[node name="ball_col" type="CollisionShape2D" parent="."]
+position = Vector2(4.23785, 2.11893)
+shape = SubResource("CircleShape2D_6trme")
