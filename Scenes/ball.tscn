@@ -10,16 +10,18 @@ var screen_size
 var velocity = Vector2()
 var col_height
 var sprite_size
+var paint_trail_1
 
-signal scored
+signal scored(side)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	col_height = $ball_col.shape.radius
 	sprite_size = self.scale.y
-	
 	screen_size = get_viewport_rect().size
+	paint_trail_1 = load(\"res://Scenes/Sprites/paint_trail.png\")
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	var old_position = position
 	
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
@@ -30,8 +32,8 @@ func _process(delta):
 	)
 	
 	if position.x == 0 or position.x==screen_size.x:
-		scored.emit()
-		queue_free()
+		scored.emit(position.x)
+		#queue_free()
 	#print(position)
 	#print(col_height*sprite_size)
 	if position.y<=col_height*sprite_size or position.y >= floor((screen_size.y-(col_height*sprite_size))):
@@ -43,10 +45,11 @@ func _on_start_timer_timeout():
 		randf_range(-(sqrt(3)/2),(sqrt(3)/2))
 		#-(sqrt(3)/2)
 	)
+	
 
 
 func _on_paddle_hit(color,normal):
-	speed += 10
+	speed += 20
 	$Sprite2D.self_modulate = color
 	velocity = velocity.bounce(normal)
 "

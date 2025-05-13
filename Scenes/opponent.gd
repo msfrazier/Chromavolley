@@ -43,8 +43,6 @@ func _on_area_shape_entered(area_rid, area, area_shape_index, local_shape_index)
 		ball_shape.global_transform
 		)
 	var normal = (collision_points[1]-collision_points[0]).normalized()
-	print(collision_points)
-	print(normal)
 	
 	hit.emit(color,normal)
 	color = Color(randf(),randf(),randf())

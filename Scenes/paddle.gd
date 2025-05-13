@@ -7,7 +7,7 @@ var sprite_size
 var color
 var ball_shape = Area2D
 
-signal hit(color)
+signal hit(color,normal)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
@@ -43,8 +43,6 @@ func _on_area_shape_entered(area_rid, area, area_shape_index, local_shape_index)
 		ball_shape.global_transform
 		)
 	var normal = (collision_points[1]-collision_points[0]).normalized()
-	print(collision_points)
-	print(normal)
 	
 	hit.emit(color,normal)
 	color = Color(randf(),randf(),randf())
