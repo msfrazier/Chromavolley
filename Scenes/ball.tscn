@@ -52,10 +52,11 @@ func _on_paddle_hit(color,normal):
 	speed += 20
 	$Sprite2D.self_modulate = color
 	velocity = velocity.bounce(normal)
+
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6trme"]
-radius = 101.0
+radius = 115.863
 
 [node name="ball" type="Area2D"]
 script = SubResource("GDScript_l3d5q")

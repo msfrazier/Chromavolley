@@ -7,7 +7,7 @@
 radius = 186.0
 height = 1026.0
 
-[node name="opponent" type="Area2D"]
+[node name="opponent" type="CharacterBody2D"]
 script = ExtResource("1_w6uu6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -17,5 +17,9 @@ flip_h = true
 [node name="opponent_col" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_3uagd")
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="area_shape_entered" from="." to="." method="_on_area_shape_entered"]
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="opponent_col2" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_3uagd")
+
+[connection signal="area_shape_entered" from="Area2D" to="." method="_on_area_shape_entered"]

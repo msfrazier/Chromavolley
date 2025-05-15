@@ -11,6 +11,9 @@ var paint_layer
 var trail
 var ball_instance
 # Called when the node enters the scene tree for the first time.
+
+signal send_opponent_info(ball_position, ball_speed)
+
 func _ready():
 	player_score = 0
 	opponent_score = 0
@@ -36,13 +39,11 @@ func _process(delta):
 		player_score_label.modulate.a -= 0.01
 		opponent_score_label.modulate.a -= 0.01
 	if ball_instance != null and ball_instance.velocity.length()>0:
-		#print($ball.global_position)
-		#paint_layer.draw_texture(
-			#paint_trail_1,
-			#$ball.position,
-			#Color(0,0,0)
-			#)
 		trail.add_point(ball_instance.position)
+		
+	#if Input.is_action_just_pressed("pause"):
+		#get_tree().paused = !get_tree().paused
+			
 		
 	pass
 	
@@ -88,8 +89,6 @@ func _on_ball_scored(side):
 	
 	ball_instance = ball
 	
-	print(get_children())
-	
 	$start_timer.start()
 
 
@@ -113,4 +112,9 @@ func _on_paddle_hit(color, normal):
 func _on_opponent_hit(color, normal):
 	create_new_trail()
 	trail.default_color = color
+	pass # Replace with function body.
+
+
+func _on_opponent_timer_timeout():
+	send_opponent_info.emit(round(ball_instance.position.y),ball_instance.speed)
 	pass # Replace with function body.
