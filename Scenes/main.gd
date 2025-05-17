@@ -10,6 +10,7 @@ var paint_trail_1
 var paint_layer
 var trail
 var ball_instance
+var paint_area
 # Called when the node enters the scene tree for the first time.
 
 signal send_opponent_info(ball_position, ball_speed)
@@ -23,6 +24,7 @@ func _ready():
 	opponent_score_label.set_text(str(opponent_score))
 	paint_trail_1 = Image.load_from_file("res://Scenes/Sprites/paint_trail.png")
 	paint_layer = $paint_layer
+	paint_area = $paint_area
 	
 	var new_trail = trail_scene.instantiate()
 	add_child(new_trail)
@@ -38,12 +40,8 @@ func _process(delta):
 		await get_tree().create_timer(0.5).timeout
 		player_score_label.modulate.a -= 0.01
 		opponent_score_label.modulate.a -= 0.01
-	if ball_instance != null and ball_instance.velocity.length()>0:
+	if ball_instance != null and ball_instance.velocity.length()>0 and paint_area.overlaps_area(ball_instance):
 		trail.add_point(ball_instance.position)
-		
-	#if Input.is_action_just_pressed("pause"):
-		#get_tree().paused = !get_tree().paused
-			
 		
 	pass
 	
@@ -59,8 +57,6 @@ func create_new_trail():
 func _on_ball_scored(side):
 	
 	ball_instance.queue_free()
-	
-	print(get_children())
 	
 	$trail_timer.stop()
 	
@@ -83,6 +79,8 @@ func _on_ball_scored(side):
 	$start_timer.timeout.connect(ball._on_start_timer_timeout)
 	$paddle.hit.connect(ball._on_paddle_hit)
 	$opponent.hit.connect(ball._on_paddle_hit)
+	
+	ball.send_opponent_info.connect($opponent._on_ball_send_opponent_info)
 	ball.scored.connect(self._on_ball_scored)
 	
 	add_child(ball,true)

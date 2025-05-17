@@ -1,15 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://cvmw6i2f03ss8"]
+[gd_scene load_steps=3 format=3 uid="uid://cvmw6i2f03ss8"]
 
 [ext_resource type="Texture2D" uid="uid://bbejgfkhfodio" path="res://Scenes/Sprites/paint_trail_2.png" id="1_4b632"]
+
+[sub_resource type="Curve" id="Curve_3ychx"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.757895, 1), 0.0, 0.0, 0, 0, Vector2(0.989474, 0.395604), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [node name="Trail" type="Line2D"]
 texture_repeat = 2
 width = 50.0
+width_curve = SubResource("Curve_3ychx")
 default_color = Color(0, 0, 0, 1)
 texture = ExtResource("1_4b632")
 texture_mode = 1
-joint_mode = 2
+joint_mode = 1
 begin_cap_mode = 2
-sharp_limit = 0.0
+end_cap_mode = 2
 round_precision = 32
-antialiased = true

@@ -1,0 +1,71 @@
+[gd_scene load_steps=6 format=3 uid="uid://jtjv3gh86v6i"]
+
+[ext_resource type="Script" path="res://Scenes/start.gd" id="1_mt8jw"]
+[ext_resource type="Texture2D" uid="uid://dy3kxiir1y1e6" path="res://Scenes/Sprites/the_shipwreck_2000.22.1.png" id="1_ub0bg"]
+[ext_resource type="Texture2D" uid="uid://cgckhonskg7xr" path="res://Scenes/Sprites/Elioth_Gruner_-_Spring_frost_-_Google_Art_Project.jpg" id="3_tr23j"]
+
+[sub_resource type="Animation" id="Animation_m061t"]
+resource_name = "ImgA"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ImgA:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-332.995, -181.634)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ImgA:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3315q"]
+_data = {
+"ImgA": SubResource("Animation_m061t")
+}
+
+[node name="start" type="Node"]
+script = ExtResource("1_mt8jw")
+
+[node name="ImgA" type="TextureRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 345.6
+offset_bottom = 194.4
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ub0bg")
+expand_mode = 1
+
+[node name="ImgB" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -333.71
+offset_top = -186.878
+offset_right = 11.8899
+offset_bottom = 7.52246
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_tr23j")
+expand_mode = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3315q")
+}

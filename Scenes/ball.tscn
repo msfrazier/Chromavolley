@@ -13,6 +13,7 @@ var sprite_size
 var paint_trail_1
 
 signal scored(side)
+signal send_opponent_info(pos)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	col_height = $ball_col.shape.radius
@@ -33,25 +34,28 @@ func _process(delta):
 	
 	if position.x == 0 or position.x==screen_size.x:
 		scored.emit(position.x)
-		#queue_free()
-	#print(position)
-	#print(col_height*sprite_size)
-	if position.y<=col_height*sprite_size or position.y >= floor((screen_size.y-(col_height*sprite_size))):
-		velocity = velocity.bounce(Vector2.UP)
 
+	if position.y<=col_height*sprite_size or position.y >= floor((screen_size.y-(col_height*sprite_size))):
+		speed += 10
+		velocity = velocity.bounce(Vector2.UP)
+		send_opponent_info.emit((velocity.normalized()*((screen_size.x-position.x)))+ global_position)
+	
+	
+		
 func _on_start_timer_timeout():
 	velocity = Vector2(
 		randf_range(0.5,1)*[1,-1].pick_random(),
 		randf_range(-(sqrt(3)/2),(sqrt(3)/2))
 		#-(sqrt(3)/2)
 	)
-	
-
+	send_opponent_info.emit((velocity.normalized()*((screen_size.x-position.x)))+ global_position)
 
 func _on_paddle_hit(color,normal):
 	speed += 20
 	$Sprite2D.self_modulate = color
 	velocity = velocity.bounce(normal)
+	print(\"bounce velocity: \", (velocity.normalized()*(screen_size.x-position.x))+ global_position)
+	send_opponent_info.emit((velocity.normalized()*((screen_size.x-position.x)))+ global_position)
 
 "
 

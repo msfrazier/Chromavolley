@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dt23sbgs426du"]
+[gd_scene load_steps=11 format=3 uid="uid://dt23sbgs426du"]
 
 [ext_resource type="PackedScene" uid="uid://ds2fj3awyna8w" path="res://Scenes/paddle.tscn" id="1_1ofa8"]
 [ext_resource type="Script" path="res://Scenes/main.gd" id="1_gswkd"]
@@ -16,6 +16,9 @@ font_color = Color(0, 0, 0, 1)
 font_size = 96
 font_color = Color(0, 0, 0, 1)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qadvq"]
+size = Vector2(108.593, 24.6919)
+
 [node name="main" type="Node"]
 script = ExtResource("1_gswkd")
 ball_scene = ExtResource("2_jcuw7")
@@ -31,14 +34,17 @@ script = ExtResource("3_xuclf")
 texture = ExtResource("5_sgju0")
 
 [node name="paddle" parent="." instance=ExtResource("1_1ofa8")]
+z_index = 1
 position = Vector2(120, 324)
 scale = Vector2(0.08, 0.08)
 
 [node name="opponent" parent="." instance=ExtResource("4_1pma4")]
+z_index = 1
 position = Vector2(1032, 324)
 scale = Vector2(0.08, 0.08)
 
 [node name="ball" parent="." instance=ExtResource("2_jcuw7")]
+z_index = 1
 position = Vector2(576, 324)
 scale = Vector2(0.105, 0.105)
 
@@ -79,12 +85,26 @@ autostart = true
 wait_time = 0.044
 autostart = true
 
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(723.384, 436.243)
+scale = Vector2(0.105, 0.105)
+gizmo_extents = 451.4
+
+[node name="paint_area" type="Area2D" parent="."]
+position = Vector2(576, 324)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="paint_area"]
+position = Vector2(1.52942, 0.325989)
+scale = Vector2(7.6, 26.2)
+shape = SubResource("RectangleShape2D_qadvq")
+
 [connection signal="send_opponent_info" from="." to="opponent" method="_on_main_send_opponent_info"]
 [connection signal="hit" from="paddle" to="." method="_on_paddle_hit"]
 [connection signal="hit" from="paddle" to="ball" method="_on_paddle_hit"]
 [connection signal="hit" from="opponent" to="." method="_on_opponent_hit"]
 [connection signal="hit" from="opponent" to="ball" method="_on_paddle_hit"]
 [connection signal="scored" from="ball" to="." method="_on_ball_scored"]
+[connection signal="send_opponent_info" from="ball" to="opponent" method="_on_ball_send_opponent_info"]
 [connection signal="timeout" from="trail_timer" to="." method="_on_trail_timer_timeout"]
 [connection signal="timeout" from="start_timer" to="." method="_on_start_timer_timeout"]
 [connection signal="timeout" from="start_timer" to="ball" method="_on_start_timer_timeout"]

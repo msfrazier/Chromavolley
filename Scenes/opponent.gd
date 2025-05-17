@@ -28,17 +28,21 @@ func _process(delta):
 	pass
 	
 func _physics_process(delta):
+	
+	velocity = Vector2.ZERO
 
-	if position.y > desired_location+(speed/10):
-		velocity.y -= 1
-	elif position.y < desired_location-(speed/10):
+	if is_equal_approx(position.y,desired_location):
+		velocity=Vector2.ZERO
+	elif position.y < desired_location-(speed/100):
 		velocity.y += 1
+	elif position.y > desired_location+(speed/100):
+		velocity.y -= 1
 	else:
 		velocity = Vector2.ZERO
 	
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
-	
+	#print("final velocity: ", velocity)
 	position = position.clamp(Vector2(0,col_height*sprite_size), Vector2(screen_size.x,(screen_size.y-(col_height*sprite_size))))
 	move_and_slide()
 	
@@ -58,17 +62,26 @@ func _on_area_shape_entered(area_rid, area, area_shape_index, local_shape_index)
 
 
 func _on_main_send_opponent_info(ball_position, ball_speed):
-	future_location = round(ball_position)
-	if position_range.has(future_location):
-		pass
-	else:
-		position_range = range(
-			round(future_location-(col_height*sprite_size)),
-			round(future_location+(col_height*sprite_size))
-			)
-		desired_location = position_range.pick_random()
+	#future_location = round(ball_position)
+	#if position_range.has(future_location):
+		#pass
+	#else:
+		#position_range = range(
+			#round(future_location-(col_height*sprite_size)),
+			#round(future_location+(col_height*sprite_size))
+			#)
+		#desired_location = position_range.pick_random()
+	#
+	#speed = ball_speed
 	
-	speed = ball_speed
+	pass
 
 	#print(round(future_location-(col_height*sprite_size)))
 	#print(round(future_location+(col_height*sprite_size)))
+
+
+func _on_ball_send_opponent_info(pos):
+	desired_location = pos.y
+	desired_location = clampf(desired_location,0,screen_size.y)
+	print("desired_location ", desired_location)
+	pass # Replace with function body.
