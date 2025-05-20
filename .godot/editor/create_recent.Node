@@ -1,4 +1,8 @@
+Button
+Label
+TextureButton
 TextureRect
+Timer
 AnimationPlayer
 Node
 ColorRect
@@ -6,9 +10,6 @@ CollisionShape2D
 Area2D
 Marker2D
 CharacterBody2D
-Timer
 Line2D
 Control
 Sprite2D
-Label
-StaticBody2D

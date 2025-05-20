@@ -1,9 +1,7 @@
+res://Scenes/start.tscn
+res://Scenes/start.gd
 res://Scenes/main.tscn
 res://Scenes/paddle.tscn
 res://Scenes/ball.tscn
 res://Scenes/trail.tscn
 res://Scenes/opponent.tscn
-res://Scenes/main.gd
-res://Scenes/opponent.gd
-res://Scenes/start.tscn
-res://Scenes/start.gd

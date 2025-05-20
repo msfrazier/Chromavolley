@@ -1,12 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://jtjv3gh86v6i"]
+[gd_scene load_steps=11 format=3 uid="uid://jtjv3gh86v6i"]
 
 [ext_resource type="Script" path="res://Scenes/start.gd" id="1_mt8jw"]
-[ext_resource type="Texture2D" uid="uid://dy3kxiir1y1e6" path="res://Scenes/Sprites/the_shipwreck_2000.22.1.png" id="1_ub0bg"]
-[ext_resource type="Texture2D" uid="uid://cgckhonskg7xr" path="res://Scenes/Sprites/Elioth_Gruner_-_Spring_frost_-_Google_Art_Project.jpg" id="3_tr23j"]
+[ext_resource type="FontFile" uid="uid://c444dtm50kikd" path="res://Scenes/Sprites/fonts/FingerPaint-Regular.ttf" id="2_63ujw"]
+[ext_resource type="Texture2D" uid="uid://oxqd5o1ddbej" path="res://Scenes/Sprites/images/ram-s-head-white-hollyhock-hills-1935.jpg!Large.jpg" id="3_qsrbq"]
+[ext_resource type="Texture2D" uid="uid://dpwis30e680yb" path="res://Scenes/Sprites/buttons.png" id="4_u3vwt"]
+[ext_resource type="Texture2D" uid="uid://cu2ogk6puyt4k" path="res://Scenes/Sprites/buttons_hover.png" id="5_o3dlb"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_s5vbr"]
+font = ExtResource("2_63ujw")
+font_size = 96
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 9
+shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_m061t"]
 resource_name = "ImgA"
-length = 4.0
+length = 16.0
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -14,10 +25,10 @@ tracks/0/path = NodePath("ImgA:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.5, 4),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 8, 16),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(-332.995, -181.634)]
+"values": [Vector2(0, 0), Vector2(-333, -182), Vector2(-333, -182)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -26,46 +37,211 @@ tracks/1/path = NodePath("ImgA:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 3, 4),
+"times": PackedFloat32Array(0, 7, 8, 15, 16),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ImgB:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 7.5, 16),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+"values": [Vector2(-333.71, -186.878), Vector2(-333.71, -186.878), Vector2(-13.3486, -10.6793)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ImgB:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(6.8, 8.1, 14.9, 16),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_eoem2"]
+resource_name = "ImgB"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ImgB:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-333.71, -186.878), Vector2(-2.66989, -5.33986)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ImgB:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 3, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3315q"]
 _data = {
-"ImgA": SubResource("Animation_m061t")
+"ImgA": SubResource("Animation_m061t"),
+"ImgB": SubResource("Animation_eoem2")
 }
+
+[sub_resource type="LabelSettings" id="LabelSettings_4wi26"]
+font = ExtResource("2_63ujw")
+font_size = 256
+font_color = Color(0.0687983, 0.0687983, 0.0687983, 1)
 
 [node name="start" type="Node"]
 script = ExtResource("1_mt8jw")
 
-[node name="ImgA" type="TextureRect" parent="."]
-visible = false
+[node name="Label" type="Label" parent="."]
+z_index = 4
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 345.6
-offset_bottom = 194.4
+offset_left = 224.0
+offset_top = 32.0
+offset_right = 224.0
+offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_ub0bg")
+text = "Chromavolley"
+label_settings = SubResource("LabelSettings_s5vbr")
+
+[node name="wall" type="TextureRect" parent="."]
+expand_mode = 1
+
+[node name="ImgA" type="TextureRect" parent="."]
+z_index = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -333.0
+offset_top = -183.0
+offset_right = 12.5999
+offset_bottom = 11.4004
+grow_horizontal = 2
+grow_vertical = 2
 expand_mode = 1
 
 [node name="ImgB" type="TextureRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -333.71
-offset_top = -186.878
-offset_right = 11.8899
-offset_bottom = 7.52246
+offset_left = -164.107
+offset_top = -93.5963
+offset_right = 181.493
+offset_bottom = 100.804
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_tr23j")
+texture = ExtResource("3_qsrbq")
 expand_mode = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_3315q")
 }
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 8.0
+autostart = true
+
+[node name="startButton" type="TextureButton" parent="."]
+z_index = 4
+offset_left = 440.0
+offset_top = 240.0
+offset_right = 3000.0
+offset_bottom = 880.0
+scale = Vector2(0.105, 0.105)
+texture_normal = ExtResource("4_u3vwt")
+texture_hover = ExtResource("5_o3dlb")
+
+[node name="Label" type="Label" parent="startButton"]
+z_index = 4
+layout_direction = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -625.5
+offset_top = -221.0
+offset_right = 625.5
+offset_bottom = 157.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Play
+"
+label_settings = SubResource("LabelSettings_4wi26")
+horizontal_alignment = 1
+
+[node name="exitButton" type="TextureButton" parent="."]
+z_index = 4
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 440.0
+offset_top = 368.0
+offset_right = 1848.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.105, 0.105)
+texture_normal = ExtResource("4_u3vwt")
+texture_hover = ExtResource("5_o3dlb")
+
+[node name="Label" type="Label" parent="exitButton"]
+z_index = 4
+layout_direction = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -625.5
+offset_top = -189.0
+offset_right = 625.5
+offset_bottom = 189.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Exit
+"
+label_settings = SubResource("LabelSettings_4wi26")
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+visible = false
+offset_left = 440.0
+offset_top = 336.0
+offset_right = 3041.0
+offset_bottom = 984.0
+scale = Vector2(0.102, 0.102)
+text = "Exit"
+icon = ExtResource("4_u3vwt")
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="button_down" from="startButton" to="." method="_on_start_button_button_down"]
+[connection signal="button_up" from="startButton" to="." method="_on_start_button_button_up"]
+[connection signal="button_up" from="exitButton" to="." method="_on_exit_button_button_up"]
+[connection signal="pressed" from="exitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="toggled" from="exitButton" to="." method="_on_exit_button_toggled"]
