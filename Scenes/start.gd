@@ -26,7 +26,12 @@ func _ready():
 		"res://Scenes/Sprites/images/ram-s-head-white-hollyhock-hills-1935.jpg!Large.jpg",
 		"res://Scenes/Sprites/images/sketch-with-many-figures-for-sunday-afternoon-on-grande-jatte-1884(1).jpg!HalfHD.jpg",
 		"res://Scenes/Sprites/images/putti-detail-from-the-sistine-madonna-1513.jpg!Large.jpg",
-		"res://Scenes/Sprites/images/impression-sunrise.jpg!Large.jpg"
+		"res://Scenes/Sprites/images/impression-sunrise.jpg!Large.jpg",
+		"res://Scenes/Sprites/images/000.jpg!Large.jpg",
+		"res://Scenes/Sprites/images/the-birth-of-venus-1485(1).jpg!Large.jpg",
+		"res://Scenes/Sprites/images/the-burning-of-a-turkish-frigate(3).jpg!Large.jpg",
+		"res://Scenes/Sprites/images/the-great-wave-off-kanagawa.jpg!Large.jpg",
+		
 	]
 	position_options = [
 		Vector2(0,0),

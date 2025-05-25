@@ -1,6 +1,9 @@
-Button
 Label
 TextureButton
+VBoxContainer
+Container
+Sprite2D
+Button
 TextureRect
 Timer
 AnimationPlayer
@@ -9,7 +12,3 @@ ColorRect
 CollisionShape2D
 Area2D
 Marker2D
-CharacterBody2D
-Line2D
-Control
-Sprite2D

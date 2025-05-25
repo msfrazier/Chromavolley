@@ -8,6 +8,7 @@ var color
 var ball_shape = Area2D
 
 signal hit(color,normal)
+signal switch_trail(l_or_r)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
@@ -28,6 +29,11 @@ func _process(delta):
 		
 	position += velocity * delta
 	position = position.clamp(Vector2(0,col_height*sprite_size), Vector2(screen_size.x,(screen_size.y-(col_height*sprite_size))))
+	
+	if Input.is_action_just_pressed("left"):
+		switch_trail.emit('l')
+	elif Input.is_action_just_pressed("right"):
+		switch_trail.emit('r')
 
 
 func _on_area_entered(area):

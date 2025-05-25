@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dt23sbgs426du"]
+[gd_scene load_steps=17 format=3 uid="uid://dt23sbgs426du"]
 
 [ext_resource type="PackedScene" uid="uid://ds2fj3awyna8w" path="res://Scenes/paddle.tscn" id="1_1ofa8"]
 [ext_resource type="Script" path="res://Scenes/main.gd" id="1_gswkd"]
@@ -7,17 +7,63 @@
 [ext_resource type="Script" path="res://Scenes/ColorRect.gd" id="3_xuclf"]
 [ext_resource type="PackedScene" uid="uid://dlnmvbn0h3ci8" path="res://Scenes/opponent.tscn" id="4_1pma4"]
 [ext_resource type="Texture2D" uid="uid://cxg6tdocwgts8" path="res://Scenes/Sprites/paint_trail.png" id="5_sgju0"]
+[ext_resource type="FontFile" uid="uid://c444dtm50kikd" path="res://Scenes/Sprites/fonts/FingerPaint-Regular.ttf" id="8_7ku17"]
+[ext_resource type="Texture2D" uid="uid://dpwis30e680yb" path="res://Scenes/Sprites/buttons.png" id="9_ru650"]
+[ext_resource type="Texture2D" uid="uid://cu2ogk6puyt4k" path="res://Scenes/Sprites/buttons_hover.png" id="10_j2uef"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_aq4xq"]
+font = ExtResource("8_7ku17")
 font_size = 96
 font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_iq4at"]
+font = ExtResource("8_7ku17")
 font_size = 96
 font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qadvq"]
 size = Vector2(108.593, 24.6919)
+
+[sub_resource type="GDScript" id="GDScript_ow5oh"]
+script/source = "extends VBoxContainer
+
+
+# Called when the node enters the scene tree for the first time.
+var is_paused
+
+func _ready():
+	is_paused = false
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if Input.is_action_just_pressed(\"pause\") and is_paused:
+		is_paused = false
+		var tween = get_tree().create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+		tween.tween_property(self,\"position\",Vector2(440,685),.2)
+		await(tween.finished)
+		get_tree().paused=false
+	pass
+
+
+func _on_main_send_pause():
+	var tween = get_tree().create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	tween.tween_property(self,\"position\",Vector2(440,194),.2)
+	await(tween.finished)
+	is_paused = true
+	pass # Replace with function body.
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_mt84c"]
+font = ExtResource("8_7ku17")
+font_size = 256
+font_color = Color(0.0687983, 0.0687983, 0.0687983, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_brwld"]
+font = ExtResource("8_7ku17")
+font_size = 256
+font_color = Color(0.0687983, 0.0687983, 0.0687983, 1)
 
 [node name="main" type="Node"]
 script = ExtResource("1_gswkd")
@@ -51,17 +97,23 @@ scale = Vector2(0.105, 0.105)
 [node name="player_score" type="Label" parent="."]
 top_level = true
 z_index = 1
-offset_left = 288.0
-offset_right = 343.0
-offset_bottom = 132.0
+offset_left = 27.7551
+offset_top = -4.48984
+offset_right = 82.7551
+offset_bottom = 138.51
+text = "0"
 label_settings = SubResource("LabelSettings_aq4xq")
 
 [node name="opponent_score" type="Label" parent="."]
 top_level = true
 z_index = 1
-offset_left = 864.0
-offset_right = 919.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -85.0
+offset_right = -30.0
 offset_bottom = 132.0
+grow_horizontal = 0
 text = "0"
 label_settings = SubResource("LabelSettings_iq4at")
 
@@ -98,9 +150,71 @@ position = Vector2(1.52942, 0.325989)
 scale = Vector2(7.6, 26.2)
 shape = SubResource("RectangleShape2D_qadvq")
 
+[node name="paintTrailExample" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(69.5927, 527.558)
+scale = Vector2(0.045, 0.045)
+texture = ExtResource("5_sgju0")
+
+[node name="pauseContainer" type="VBoxContainer" parent="."]
+process_mode = 2
+z_index = 5
+offset_left = 440.0
+offset_top = 676.991
+offset_right = 3000.0
+offset_bottom = 3207.99
+scale = Vector2(0.105, 0.105)
+theme_override_constants/separation = 1251
+alignment = 1
+script = SubResource("GDScript_ow5oh")
+
+[node name="Unpause" type="TextureButton" parent="pauseContainer"]
+layout_mode = 2
+texture_normal = ExtResource("9_ru650")
+texture_hover = ExtResource("10_j2uef")
+
+[node name="Label" type="Label" parent="pauseContainer/Unpause"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.5
+offset_top = -189.0
+offset_right = 576.5
+offset_bottom = 189.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Continue"
+label_settings = SubResource("LabelSettings_mt84c")
+
+[node name="MainMenu" type="TextureButton" parent="pauseContainer"]
+layout_mode = 2
+texture_normal = ExtResource("9_ru650")
+texture_hover = ExtResource("10_j2uef")
+
+[node name="Label" type="Label" parent="pauseContainer/MainMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -719.0
+offset_top = -189.0
+offset_right = 719.0
+offset_bottom = 189.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Main Menu"
+label_settings = SubResource("LabelSettings_brwld")
+
 [connection signal="send_opponent_info" from="." to="opponent" method="_on_main_send_opponent_info"]
+[connection signal="send_pause" from="." to="pauseContainer" method="_on_main_send_pause"]
 [connection signal="hit" from="paddle" to="." method="_on_paddle_hit"]
 [connection signal="hit" from="paddle" to="ball" method="_on_paddle_hit"]
+[connection signal="switch_trail" from="paddle" to="." method="_on_paddle_switch_trail"]
 [connection signal="hit" from="opponent" to="." method="_on_opponent_hit"]
 [connection signal="hit" from="opponent" to="ball" method="_on_paddle_hit"]
 [connection signal="scored" from="ball" to="." method="_on_ball_scored"]
