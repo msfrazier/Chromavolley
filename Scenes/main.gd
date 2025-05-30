@@ -2,18 +2,28 @@ extends Node
 
 @export var ball_scene: PackedScene
 @export var trail_scene: PackedScene
+@export var score_goal: int
+@export var paint_goal : float
+
 var player_score
 var opponent_score
 var player_score_label
 var opponent_score_label
+var camera : Camera2D
 var paint_trail_example: Sprite2D
 var current_trail_texture
 var paint_trails : Array
 var paint_layer
 var trail
 var ball_instance
-var paint_area
+var paint_area : Area2D
 var pauseContainer
+var img : Image
+
+var rect
+var top_l 
+var bottom_r
+var total_pixels
 # Called when the node enters the scene tree for the first time.
 
 signal send_opponent_info(ball_position, ball_speed)
@@ -36,6 +46,23 @@ func _ready():
 	paint_area = $paint_area
 	pauseContainer = $pauseContainer
 	
+	rect = $paint_area/CollisionShape2D.shape.get_rect()
+	top_l = rect.position + paint_area.position
+	bottom_r = rect.end + paint_area.position
+	
+	if GlobalState.score_goal != -1:
+		score_goal = GlobalState.score_goal
+		
+	if GlobalState.paint_goal == -1:
+		paint_goal = GlobalState.paint_goal
+		
+		
+		print(rect)
+		print(top_l)
+		print(bottom_r)
+		
+		total_pixels = (bottom_r.x - top_l.x) * (bottom_r.y - top_l.y)
+	
 	var new_trail = trail_scene.instantiate()
 	new_trail.set_texture(paint_trails[0])
 	current_trail_texture = 0
@@ -43,6 +70,7 @@ func _ready():
 	
 	trail = new_trail
 	ball_instance = $ball
+	
 	pass # Replace with function body.
 
 
@@ -73,6 +101,16 @@ func create_new_trail(player_hit):
 	trail = new_trail
 	
 	pass
+	
+func check_color_percentage():
+	var colored_pixels = 0
+	img = get_viewport().get_texture().get_image()
+	for x in range(top_l.x,bottom_r.x):
+			for y in range(top_l.y,bottom_r.y):
+				if !img.get_pixel(x,y).is_equal_approx(Color(1,1,1)):
+					colored_pixels += 1
+	print((colored_pixels/total_pixels)*100)
+				
 
 
 func _on_ball_scored(side):
@@ -92,6 +130,16 @@ func _on_ball_scored(side):
 		player_score += 1 
 		player_score_label.set_text(str(player_score))
 		player_score_label.modulate.a = 1
+		
+	if player_score == score_goal:
+		print("Player Won!!")
+		
+		var game_scene = load("res://Scenes/start.tscn")
+		get_tree().change_scene_to_packed(game_scene)
+	elif opponent_score == score_goal:
+		print("Opponent Won...")
+		var game_scene = load("res://Scenes/start.tscn")
+		get_tree().change_scene_to_packed(game_scene)
 		
 	var ball = ball_scene.instantiate()
 	
@@ -127,6 +175,7 @@ func _on_trail_timer_timeout():
 func _on_paddle_hit(color, normal):
 	create_new_trail(true)
 	trail.default_color = color
+	check_color_percentage()
 	pass # Replace with function body.
 
 

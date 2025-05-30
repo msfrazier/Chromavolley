@@ -48,10 +48,12 @@ func _on_area_shape_entered(area_rid, area, area_shape_index, local_shape_index)
 		ball_shape.shape,
 		ball_shape.global_transform
 		)
-	var normal = (collision_points[1]-collision_points[0]).normalized()
-	
-	hit.emit(color,normal)
-	color = Color(randf(),randf(),randf())
-	$paddle_sprite.self_modulate=color
+	#Not really sur why this causes an error but w/ever
+	if collision_points.size()==2:
+		var normal = (collision_points[1]-collision_points[0]).normalized()
+		
+		hit.emit(color,normal)
+		color = Color(randf(),randf(),randf())
+		$paddle_sprite.self_modulate=color
 	
 	pass # Replace with function body.

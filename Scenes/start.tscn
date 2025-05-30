@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://jtjv3gh86v6i"]
+[gd_scene load_steps=13 format=3 uid="uid://jtjv3gh86v6i"]
 
 [ext_resource type="Script" path="res://Scenes/start.gd" id="1_mt8jw"]
 [ext_resource type="FontFile" uid="uid://c444dtm50kikd" path="res://Scenes/Sprites/fonts/FingerPaint-Regular.ttf" id="2_63ujw"]
@@ -13,6 +13,12 @@ outline_size = 15
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 9
 shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_iapvx"]
+font = ExtResource("2_63ujw")
+font_size = 64
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_m061t"]
 resource_name = "ImgA"
@@ -104,12 +110,19 @@ _data = {
 [sub_resource type="LabelSettings" id="LabelSettings_4wi26"]
 font = ExtResource("2_63ujw")
 font_size = 256
-font_color = Color(0.0687983, 0.0687983, 0.0687983, 1)
+font_color = Color(0, 0, 0, 1)
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_f61sv"]
+font = ExtResource("2_63ujw")
+font_size = 64
+outline_size = 7
+outline_color = Color(0, 0, 0, 1)
 
 [node name="start" type="Node"]
 script = ExtResource("1_mt8jw")
 
-[node name="Label" type="Label" parent="."]
+[node name="titleLabel" type="Label" parent="."]
 z_index = 4
 anchors_preset = 15
 anchor_right = 1.0
@@ -122,6 +135,20 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Chromavolley"
 label_settings = SubResource("LabelSettings_s5vbr")
+
+[node name="classicScoreLabel" type="Label" parent="."]
+z_index = 4
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1177.0
+offset_top = 152.0
+offset_right = 1447.0
+offset_bottom = 152.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "What score will you play to?"
+label_settings = SubResource("LabelSettings_iapvx")
 
 [node name="wall" type="TextureRect" parent="."]
 expand_mode = 1
@@ -197,9 +224,9 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 440.0
-offset_top = 368.0
+offset_top = 430.0
 offset_right = 1848.0
-offset_bottom = 360.0
+offset_bottom = 422.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.105, 0.105)
@@ -226,17 +253,122 @@ text = "Exit
 label_settings = SubResource("LabelSettings_4wi26")
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="."]
+[node name="classicModeButton" type="TextureButton" parent="."]
 visible = false
-offset_left = 440.0
+z_index = 4
+offset_left = -270.0
+offset_top = 240.0
+offset_right = 2290.0
+offset_bottom = 880.0
+scale = Vector2(0.105, 0.105)
+texture_normal = ExtResource("4_u3vwt")
+texture_hover = ExtResource("5_o3dlb")
+
+[node name="Label" type="Label" parent="classicModeButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -487.0
+offset_top = -189.0
+offset_right = 487.0
+offset_bottom = 189.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Classic"
+label_settings = SubResource("LabelSettings_4wi26")
+
+[node name="paintModeButton" type="TextureButton" parent="."]
+visible = false
+z_index = 4
+offset_left = 1165.0
+offset_top = 430.0
+offset_right = 3725.0
+offset_bottom = 1070.0
+scale = Vector2(0.105, 0.105)
+texture_normal = ExtResource("4_u3vwt")
+texture_hover = ExtResource("5_o3dlb")
+
+[node name="Label" type="Label" parent="paintModeButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -487.0
+offset_top = -189.0
+offset_right = 487.0
+offset_bottom = 189.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Paint
+"
+label_settings = SubResource("LabelSettings_4wi26")
+
+[node name="classicPlayButton" type="TextureButton" parent="."]
+visible = false
+z_index = 4
+offset_left = 1162.0
+offset_top = 430.0
+offset_right = 3722.0
+offset_bottom = 1070.0
+scale = Vector2(0.105, 0.105)
+texture_normal = ExtResource("4_u3vwt")
+texture_hover = ExtResource("5_o3dlb")
+
+[node name="Label" type="Label" parent="classicPlayButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -487.0
+offset_top = -189.0
+offset_right = 487.0
+offset_bottom = 189.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Play"
+label_settings = SubResource("LabelSettings_4wi26")
+horizontal_alignment = 1
+
+[node name="scoreSlider" type="HSlider" parent="."]
+visible = false
+top_level = true
+z_index = 4
+anchors_preset = -1
+anchor_left = 0.307
+anchor_right = 0.509
+offset_left = -783.664
 offset_top = 336.0
-offset_right = 3041.0
-offset_bottom = 984.0
-scale = Vector2(0.102, 0.102)
-text = "Exit"
-icon = ExtResource("4_u3vwt")
-icon_alignment = 1
-expand_icon = true
+offset_right = -783.368
+offset_bottom = 352.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.78, 1.78)
+size_flags_vertical = 3
+min_value = 5.0
+max_value = 20.0
+value = 5.0
+rounded = true
+
+[node name="Label" type="Label" parent="scoreSlider"]
+z_index = 4
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -11.0112
+offset_right = 28.9888
+offset_bottom = 96.0
+grow_horizontal = 2
+scale = Vector2(0.585, 0.585)
+text = "0"
+label_settings = SubResource("LabelSettings_f61sv")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
@@ -245,3 +377,6 @@ expand_icon = true
 [connection signal="button_up" from="exitButton" to="." method="_on_exit_button_button_up"]
 [connection signal="pressed" from="exitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="toggled" from="exitButton" to="." method="_on_exit_button_toggled"]
+[connection signal="button_up" from="classicModeButton" to="." method="_on_classic_mode_button_button_up"]
+[connection signal="button_up" from="classicPlayButton" to="." method="_on_classic_play_button_button_up"]
+[connection signal="value_changed" from="scoreSlider" to="." method="_on_score_slider_value_changed"]
