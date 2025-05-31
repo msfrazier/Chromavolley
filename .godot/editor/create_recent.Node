@@ -1,7 +1,8 @@
+Camera2D
+Timer
 SubViewportContainer
 SubViewport
 Window
-Camera2D
 Container
 AspectRatioContainer
 Label
@@ -11,5 +12,3 @@ HScrollBar
 TextureButton
 VBoxContainer
 Sprite2D
-Button
-TextureRect

@@ -5,6 +5,8 @@ extends Node
 @export var score_goal: int
 @export var paint_goal : float
 
+#@onready var colored_pixels = 0
+
 var player_score
 var opponent_score
 var player_score_label
@@ -13,7 +15,6 @@ var camera : Camera2D
 var paint_trail_example: Sprite2D
 var current_trail_texture
 var paint_trails : Array
-var paint_layer
 var trail
 var ball_instance
 var paint_area : Area2D
@@ -24,10 +25,12 @@ var rect
 var top_l 
 var bottom_r
 var total_pixels
+var pixel_count_thread : Thread
 # Called when the node enters the scene tree for the first time.
 
 signal send_opponent_info(ball_position, ball_speed)
 signal send_pause()
+signal check_color_percentage
 
 func _ready():
 	player_score = 0
@@ -42,7 +45,6 @@ func _ready():
 		load("res://Scenes/Sprites/paint_trail_2.png"),
 		load("res://Scenes/Sprites/paint_trail_3.png")
 	]
-	paint_layer = $paint_layer
 	paint_area = $paint_area
 	pauseContainer = $pauseContainer
 	
@@ -53,15 +55,15 @@ func _ready():
 	if GlobalState.score_goal != -1:
 		score_goal = GlobalState.score_goal
 		
-	if GlobalState.paint_goal == -1:
-		paint_goal = GlobalState.paint_goal
-		
-		
+	if paint_goal != -1:
 		print(rect)
 		print(top_l)
 		print(bottom_r)
 		
 		total_pixels = (bottom_r.x - top_l.x) * (bottom_r.y - top_l.y)
+
+		#pixel_count_thread = Thread.new()
+
 	
 	var new_trail = trail_scene.instantiate()
 	new_trail.set_texture(paint_trails[0])
@@ -102,22 +104,29 @@ func create_new_trail(player_hit):
 	
 	pass
 	
-func check_color_percentage():
-	var colored_pixels = 0
-	img = get_viewport().get_texture().get_image()
-	for x in range(top_l.x,bottom_r.x):
-			for y in range(top_l.y,bottom_r.y):
-				if !img.get_pixel(x,y).is_equal_approx(Color(1,1,1)):
-					colored_pixels += 1
-	print((colored_pixels/total_pixels)*100)
+func _check_color_percentage(img):
+	##print("checking")
+	#var colored_pixels = 0
+	#var ratio = colored_pixels/total_pixels
+	#
+	#for x in range(top_l.x,bottom_r.x,16):
+			#for y in range(top_l.y,bottom_r.y,16):
+				#if !img.get_pixel(x,y).is_equal_approx(Color(1,1,1)):
+					#colored_pixels += 1
+	#ratio = colored_pixels/(total_pixels/(16*16))
+	##print(ratio)
+	#if ratio < paint_goal:
+		#pass
+	#else:
+		#print("Finished")
+	##check_color_percentage.emit()
+	pass
 				
 
 
 func _on_ball_scored(side):
 	
 	ball_instance.queue_free()
-	
-	$trail_timer.stop()
 	
 	create_new_trail(true)
 	
@@ -162,31 +171,20 @@ func _on_ball_scored(side):
 
 
 func _on_start_timer_timeout():
-	$trail_timer.start()
+	#check_color_percentage.emit()
+	#pixel_count_thread.start(_check_color_percentage)
+	#$color_check_timer.start()
 	pass
-
-
-func _on_trail_timer_timeout():
-	#if ball_instance:
-		#trail.add_point(ball_instance.position)
-	pass
-
 
 func _on_paddle_hit(color, normal):
 	create_new_trail(true)
 	trail.default_color = color
-	check_color_percentage()
 	pass # Replace with function body.
 
 
 func _on_opponent_hit(color, normal):
 	create_new_trail(false)
 	trail.default_color = color
-	pass # Replace with function body.
-
-
-func _on_opponent_timer_timeout():
-	send_opponent_info.emit(round(ball_instance.position.y),ball_instance.speed)
 	pass # Replace with function body.
 
 
@@ -197,3 +195,36 @@ func _on_paddle_switch_trail(l_or_r):
 		current_trail_texture = (current_trail_texture - 1) % 3
 	paint_trail_example.texture = paint_trails[current_trail_texture]
 	paint_trail_example.modulate.a = 1
+
+
+func _on_check_color_percentage(img):
+	var colored_pixels = 0
+	var ratio = colored_pixels/total_pixels
+	#await RenderingServer.frame_post_draw
+	
+	for x in range(top_l.x,bottom_r.x):
+			for y in range(top_l.y,bottom_r.y):
+				var pixel = img.get_pixel(x,y)
+				if pixel.r<0.95 or pixel.b<0.95 or pixel.g<0.95:
+					colored_pixels += 1
+	ratio = (colored_pixels)/(total_pixels)
+	print((ratio))
+	if ratio < paint_goal:
+		pass
+	else:
+		print("Finished")
+		var game_scene = load("res://Scenes/start.tscn")
+		get_tree().change_scene_to_packed(game_scene)
+		
+	#pixel_count_thread.wait_to_finish()
+	#print("thread_finished")
+	#pixel_count_thread.start(_check_color_percentage.bind(get_viewport().get_texture().get_image()))
+	pass # Replace with function body.
+
+
+func _on_color_check_timer_timeout():
+	#var img = get_viewport().get_texture().get_image()
+	#check_color_percentage.emit(img)
+	#pixel_count_thread.start(_check_color_percentage.bind(get_viewport().get_texture().get_image()))
+	#pixel_count_thread.wait_to_finish()
+	pass # Replace with function body.

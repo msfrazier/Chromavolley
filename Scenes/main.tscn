@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dt23sbgs426du"]
+[gd_scene load_steps=18 format=3 uid="uid://dt23sbgs426du"]
 
 [ext_resource type="PackedScene" uid="uid://ds2fj3awyna8w" path="res://Scenes/paddle.tscn" id="1_1ofa8"]
 [ext_resource type="Script" path="res://Scenes/main.gd" id="1_gswkd"]
@@ -24,9 +24,6 @@ font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qadvq"]
 size = Vector2(830, 644)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_r7l0n"]
-size = Vector2(108.593, 24.6919)
 
 [sub_resource type="GDScript" id="GDScript_ow5oh"]
 script/source = "extends VBoxContainer
@@ -91,9 +88,10 @@ script = ExtResource("1_gswkd")
 ball_scene = ExtResource("2_jcuw7")
 trail_scene = ExtResource("3_8xroi")
 score_goal = -1
-paint_goal = -1.0
+paint_goal = 0.75
 
 [node name="ColorRect" type="ColorRect" parent="."]
+process_mode = 4
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -140,32 +138,16 @@ grow_horizontal = 0
 text = "0"
 label_settings = SubResource("LabelSettings_iq4at")
 
-[node name="paint_layer" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="trail_timer" type="Timer" parent="."]
-wait_time = 0.01
-
 [node name="start_timer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
 autostart = true
 
-[node name="opponent_timer" type="Timer" parent="."]
-wait_time = 0.044
-autostart = true
-
-[node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(723.384, 436.243)
-scale = Vector2(0.105, 0.105)
-gizmo_extents = 451.4
+[node name="color_check_timer" type="Timer" parent="."]
+process_mode = 4
 
 [node name="EndingOutline" type="Sprite2D" parent="."]
+process_mode = 4
 visible = false
 position = Vector2(576.058, 323.704)
 scale = Vector2(1.483, 2.31)
@@ -177,14 +159,8 @@ position = Vector2(576, 324)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="paint_area"]
 shape = SubResource("RectangleShape2D_qadvq")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="paint_area"]
-visible = false
-position = Vector2(1.52942, 0.325989)
-scale = Vector2(7.6, 26.2)
-shape = SubResource("RectangleShape2D_r7l0n")
-debug_color = Color(0.993363, 0, 0.238705, 0.42)
-
 [node name="paintTrailExample" type="Sprite2D" parent="."]
+process_mode = 4
 modulate = Color(0, 0, 0, 1)
 position = Vector2(50.0639, 546.457)
 scale = Vector2(0.0370025, 0.038848)
@@ -244,25 +220,7 @@ grow_vertical = 2
 text = "Main Menu"
 label_settings = SubResource("LabelSettings_brwld")
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-visible = false
-offset_left = 166.0
-offset_right = 993.0
-offset_bottom = 652.0
-
-[node name="SubViewport2" type="SubViewport" parent="SubViewportContainer"]
-handle_input_locally = false
-size = Vector2i(697, 512)
-render_target_update_mode = 0
-
-[node name="paint_area" type="Area2D" parent="SubViewportContainer/SubViewport2"]
-position = Vector2(576, 324)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SubViewportContainer/SubViewport2/paint_area"]
-position = Vector2(1.52942, 0.325989)
-scale = Vector2(7.6, 26.2)
-shape = SubResource("RectangleShape2D_qadvq")
-
+[connection signal="check_color_percentage" from="." to="." method="_on_check_color_percentage"]
 [connection signal="send_opponent_info" from="." to="opponent" method="_on_main_send_opponent_info"]
 [connection signal="send_pause" from="." to="pauseContainer" method="_on_main_send_pause"]
 [connection signal="hit" from="paddle" to="." method="_on_paddle_hit"]
@@ -272,9 +230,8 @@ shape = SubResource("RectangleShape2D_qadvq")
 [connection signal="hit" from="opponent" to="ball" method="_on_paddle_hit"]
 [connection signal="scored" from="ball" to="." method="_on_ball_scored"]
 [connection signal="send_opponent_info" from="ball" to="opponent" method="_on_ball_send_opponent_info"]
-[connection signal="timeout" from="trail_timer" to="." method="_on_trail_timer_timeout"]
 [connection signal="timeout" from="start_timer" to="." method="_on_start_timer_timeout"]
 [connection signal="timeout" from="start_timer" to="ball" method="_on_start_timer_timeout"]
-[connection signal="timeout" from="opponent_timer" to="." method="_on_opponent_timer_timeout"]
+[connection signal="timeout" from="color_check_timer" to="." method="_on_color_check_timer_timeout"]
 [connection signal="button_up" from="pauseContainer/Unpause" to="pauseContainer" method="_on_unpause_button_up"]
 [connection signal="button_up" from="pauseContainer/MainMenu" to="pauseContainer" method="_on_main_menu_button_up"]
