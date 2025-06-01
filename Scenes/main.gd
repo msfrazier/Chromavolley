@@ -11,6 +11,7 @@ var player_score
 var opponent_score
 var player_score_label
 var opponent_score_label
+var fade_tween : Tween
 var camera : Camera2D
 var paint_trail_example: Sprite2D
 var current_trail_texture
@@ -20,6 +21,7 @@ var ball_instance
 var paint_area : Area2D
 var pauseContainer
 var img : Image
+var rd : RenderingDevice
 
 var rect
 var top_l 
@@ -33,6 +35,7 @@ signal send_pause()
 signal check_color_percentage
 
 func _ready():
+	rd = RenderingServer.get_rendering_device()
 	player_score = 0
 	opponent_score = 0
 	player_score_label = $player_score
@@ -52,6 +55,8 @@ func _ready():
 	top_l = rect.position + paint_area.position
 	bottom_r = rect.end + paint_area.position
 	
+	
+	
 	if GlobalState.score_goal != -1:
 		score_goal = GlobalState.score_goal
 		
@@ -62,7 +67,7 @@ func _ready():
 		
 		total_pixels = (bottom_r.x - top_l.x) * (bottom_r.y - top_l.y)
 
-		#pixel_count_thread = Thread.new()
+		pixel_count_thread = Thread.new()
 
 	
 	var new_trail = trail_scene.instantiate()
@@ -78,11 +83,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if player_score_label.modulate.a > 0 or opponent_score_label.modulate.a > 0 or paint_trail_example.modulate.a > 0:
-		await get_tree().create_timer(0.5).timeout
-		player_score_label.modulate.a -= 0.01
-		opponent_score_label.modulate.a -= 0.01
-		paint_trail_example.modulate.a -= 0.01
+
 	if ball_instance != null and ball_instance.velocity.length()>0 and paint_area.overlaps_area(ball_instance):
 		trail.add_point(ball_instance.position)
 	if Input.is_action_just_pressed("pause"):
@@ -103,22 +104,36 @@ func create_new_trail(player_hit):
 	trail = new_trail
 	
 	pass
+
+func fade(type:String):
+	fade_tween = get_tree().create_tween().set_parallel(true)
+	if type=="out":
+		fade_tween.tween_property(player_score_label,"modulate:a",0,1)
+		fade_tween.tween_property(opponent_score_label,"modulate:a",0,1)
+		fade_tween.tween_property(paint_trail_example,"modulate:a",0,1)
+		
+	elif type == "in":
+		fade_tween.tween_property(player_score_label,"modulate:a",1,1)
+		fade_tween.tween_property(opponent_score_label,"modulate:a",1,1)
+		fade_tween.tween_property(paint_trail_example,"modulate:a",1,1)
+	pass
 	
 func _check_color_percentage(img):
 	##print("checking")
-	#var colored_pixels = 0
-	#var ratio = colored_pixels/total_pixels
-	#
-	#for x in range(top_l.x,bottom_r.x,16):
-			#for y in range(top_l.y,bottom_r.y,16):
-				#if !img.get_pixel(x,y).is_equal_approx(Color(1,1,1)):
-					#colored_pixels += 1
-	#ratio = colored_pixels/(total_pixels/(16*16))
-	##print(ratio)
-	#if ratio < paint_goal:
-		#pass
-	#else:
-		#print("Finished")
+	var colored_pixels = 0
+	var ratio = colored_pixels/total_pixels
+	
+	for x in range(top_l.x,bottom_r.x,4):
+			for y in range(top_l.y,bottom_r.y,4):
+				if !img.get_pixel(x,y).is_equal_approx(Color(1,1,1)):
+					colored_pixels += 1
+	ratio = colored_pixels/(total_pixels/(4))
+	#print(ratio)
+	print((total_pixels/(4)))
+	if ratio < paint_goal:
+		pass
+	else:
+		print("Finished")
 	##check_color_percentage.emit()
 	pass
 				
@@ -139,7 +154,9 @@ func _on_ball_scored(side):
 		player_score += 1 
 		player_score_label.set_text(str(player_score))
 		player_score_label.modulate.a = 1
-		
+	
+	
+	
 	if player_score == score_goal:
 		print("Player Won!!")
 		
@@ -171,9 +188,10 @@ func _on_ball_scored(side):
 
 
 func _on_start_timer_timeout():
-	#check_color_percentage.emit()
-	#pixel_count_thread.start(_check_color_percentage)
-	#$color_check_timer.start()
+
+	fade("out")
+	$color_check_timer.start()
+	
 	pass
 
 func _on_paddle_hit(color, normal):
@@ -201,30 +219,18 @@ func _on_check_color_percentage(img):
 	var colored_pixels = 0
 	var ratio = colored_pixels/total_pixels
 	#await RenderingServer.frame_post_draw
-	
-	for x in range(top_l.x,bottom_r.x):
-			for y in range(top_l.y,bottom_r.y):
+	for x in range(top_l.x,bottom_r.x,4):
+			for y in range(top_l.y,bottom_r.y,4):
 				var pixel = img.get_pixel(x,y)
 				if pixel.r<0.95 or pixel.b<0.95 or pixel.g<0.95:
 					colored_pixels += 1
-	ratio = (colored_pixels)/(total_pixels)
-	print((ratio))
+	ratio = (colored_pixels)/(total_pixels/16)
+	print(("ratio2 "+ str(ratio)))
 	if ratio < paint_goal:
 		pass
 	else:
 		print("Finished")
 		var game_scene = load("res://Scenes/start.tscn")
 		get_tree().change_scene_to_packed(game_scene)
-		
-	#pixel_count_thread.wait_to_finish()
-	#print("thread_finished")
-	#pixel_count_thread.start(_check_color_percentage.bind(get_viewport().get_texture().get_image()))
-	pass # Replace with function body.
 
-
-func _on_color_check_timer_timeout():
-	#var img = get_viewport().get_texture().get_image()
-	#check_color_percentage.emit(img)
-	#pixel_count_thread.start(_check_color_percentage.bind(get_viewport().get_texture().get_image()))
-	#pixel_count_thread.wait_to_finish()
 	pass # Replace with function body.

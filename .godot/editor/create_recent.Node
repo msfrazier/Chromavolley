@@ -1,7 +1,8 @@
+CanvasLayer
+SubViewport
+SubViewportContainer
 Camera2D
 Timer
-SubViewportContainer
-SubViewport
 Window
 Container
 AspectRatioContainer
