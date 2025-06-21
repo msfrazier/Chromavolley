@@ -4,6 +4,7 @@ extends Node
 @export var trail_scene: PackedScene
 @export var score_goal: int
 @export var paint_goal : float
+@export var volley_limit : float
 
 #@onready var colored_pixels = 0
 
@@ -55,12 +56,13 @@ func _ready():
 	top_l = rect.position + paint_area.position
 	bottom_r = rect.end + paint_area.position
 	
-	
-	
 	if GlobalState.score_goal != -1:
 		score_goal = GlobalState.score_goal
 		
-	if paint_goal != -1:
+	if GlobalState.paint_goal != -1:
+		paint_goal = GlobalState.paint_goal/100
+		volley_limit = GlobalState.volley_limit
+		
 		print(rect)
 		print(top_l)
 		print(bottom_r)
@@ -118,26 +120,27 @@ func fade(type:String):
 		fade_tween.tween_property(paint_trail_example,"modulate:a",1,1)
 	pass
 	
-func _check_color_percentage(img):
-	##print("checking")
-	var colored_pixels = 0
-	var ratio = colored_pixels/total_pixels
+func return_to_main_menu():
+	var game_scene = load("res://Scenes/start.tscn")
+	GlobalState.paint_goal = -1
+	GlobalState.score_goal = -1
+	GlobalState.volley_limit = -1
+	GlobalState.current_level = ""
+	get_tree().change_scene_to_packed(game_scene)
 	
-	for x in range(top_l.x,bottom_r.x,4):
-			for y in range(top_l.y,bottom_r.y,4):
-				if !img.get_pixel(x,y).is_equal_approx(Color(1,1,1)):
-					colored_pixels += 1
-	ratio = colored_pixels/(total_pixels/(4))
-	#print(ratio)
-	print((total_pixels/(4)))
-	if ratio < paint_goal:
-		pass
+func finished(won:bool):
+	if won:
+		$finished_label.set_text("Success!")
 	else:
-		print("Finished")
-	##check_color_percentage.emit()
+		$finished_label.set_text("Failure...")
+	var tween = get_tree().create_tween().set_parallel(true)
+	camera = Camera2D.new()
+	paint_area.add_child(camera)
+	tween.tween_property(camera,"zoom",Vector2(2,2),1).set_trans(Tween.TRANS_QUAD)
+	tween.tween_property($finished_label,"visible_ratio",1,2)
+	await tween.finished
+	$MainMenu2.show()
 	pass
-				
-
 
 func _on_ball_scored(side):
 	
@@ -156,16 +159,24 @@ func _on_ball_scored(side):
 		player_score_label.modulate.a = 1
 	
 	
-	
-	if player_score == score_goal:
-		print("Player Won!!")
+	if score_goal != -1:
+		if player_score == score_goal:
+			print("Player Won!!")
+			finished(true)
+			return true
 		
-		var game_scene = load("res://Scenes/start.tscn")
-		get_tree().change_scene_to_packed(game_scene)
-	elif opponent_score == score_goal:
-		print("Opponent Won...")
-		var game_scene = load("res://Scenes/start.tscn")
-		get_tree().change_scene_to_packed(game_scene)
+		elif opponent_score == score_goal:
+			print("Opponent Won...")
+			finished(false)
+			return true
+			
+	elif paint_goal != -1:
+		
+		if player_score + opponent_score >= volley_limit:
+			print("Failure...")
+			return_to_main_menu()
+			
+		
 		
 	var ball = ball_scene.instantiate()
 	
@@ -190,7 +201,8 @@ func _on_ball_scored(side):
 func _on_start_timer_timeout():
 
 	fade("out")
-	$color_check_timer.start()
+	if paint_goal != -1:
+		$color_check_timer.start()
 	
 	pass
 
@@ -225,12 +237,12 @@ func _on_check_color_percentage(img):
 				if pixel.r<0.95 or pixel.b<0.95 or pixel.g<0.95:
 					colored_pixels += 1
 	ratio = (colored_pixels)/(total_pixels/16)
-	print(("ratio2 "+ str(ratio)))
+	#print("ratio: ", ratio)
 	if ratio < paint_goal:
 		pass
 	else:
 		print("Finished")
-		var game_scene = load("res://Scenes/start.tscn")
-		get_tree().change_scene_to_packed(game_scene)
+		GlobalState.completed_levels.append(GlobalState.current_level)
+		return_to_main_menu()
 
 	pass # Replace with function body.

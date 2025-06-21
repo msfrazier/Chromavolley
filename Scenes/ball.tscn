@@ -38,8 +38,11 @@ func _process(delta):
 	if position.y<=col_height*sprite_size or position.y >= floor((screen_size.y-(col_height*sprite_size))):
 		speed += 10
 		velocity = velocity.bounce(Vector2.UP)
-		send_opponent_info.emit((velocity.normalized()*((screen_size.x-position.x)))+ global_position)
+		send_opponent_info_func()
+		#send_opponent_info.emit((velocity.normalized()*((screen_size.x-position.x)))+ global_position)
 	
+func send_opponent_info_func():
+	send_opponent_info.emit((velocity.normalized()*((screen_size.x-position.x)))+ global_position)
 	
 		
 func _on_start_timer_timeout():
@@ -48,14 +51,15 @@ func _on_start_timer_timeout():
 		randf_range(-(sqrt(3)/2),(sqrt(3)/2))
 		#-(sqrt(3)/2)
 	)
-	send_opponent_info.emit((velocity.normalized()*((screen_size.x-position.x)))+ global_position)
+	send_opponent_info_func()
+	#send_opponent_info.emit((velocity.normalized()*((screen_size.x-position.x)))+ global_position)
 
 func _on_paddle_hit(color,normal):
 	speed += 20
 	$Sprite2D.self_modulate = color
 	velocity = velocity.bounce(normal)
-	print(\"bounce velocity: \", (velocity.normalized()*(screen_size.x-position.x))+ global_position)
-	send_opponent_info.emit((velocity.normalized()*((screen_size.x-position.x)))+ global_position)
+	send_opponent_info_func()
+	#send_opponent_info.emit((velocity.normalized()*((screen_size.x-position.x)))+ global_position)
 
 "
 
