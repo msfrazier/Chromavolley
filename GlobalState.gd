@@ -5,6 +5,7 @@ var paint_goal: float = -1
 var volley_limit: float = -1
 var completed_levels = []
 var current_level: String = ""
+var canvas: Image
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.

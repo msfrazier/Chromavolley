@@ -48,7 +48,7 @@ func send_opponent_info_func():
 func _on_start_timer_timeout():
 	velocity = Vector2(
 		randf_range(0.5,1)*[1,-1].pick_random(),
-		randf_range(-(sqrt(3)/2),(sqrt(3)/2))
+		randf_range(-(sqrt(2)/2),(sqrt(2)/2))
 		#-(sqrt(3)/2)
 	)
 	send_opponent_info_func()

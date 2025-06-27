@@ -1,0 +1,96 @@
+[gd_scene load_steps=9 format=3 uid="uid://2d54sr0xa1p0"]
+
+[ext_resource type="PackedScene" uid="uid://5dthr4vavagk" path="res://Scenes/Models/alley_scene.glb" id="1_u3hr3"]
+[ext_resource type="Script" path="res://Scenes/alley_scene.gd" id="2_2gpmw"]
+[ext_resource type="Texture2D" uid="uid://dpwis30e680yb" path="res://Scenes/Sprites/buttons.png" id="2_nk86v"]
+[ext_resource type="Texture2D" uid="uid://cu2ogk6puyt4k" path="res://Scenes/Sprites/buttons_hover.png" id="3_ecbwn"]
+[ext_resource type="FontFile" uid="uid://c444dtm50kikd" path="res://Scenes/Sprites/fonts/FingerPaint-Regular.ttf" id="4_wcy82"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l5v8p"]
+uv1_triplanar_sharpness = 0.267943
+
+[sub_resource type="Environment" id="Environment_jd1pl"]
+fog_enabled = true
+fog_light_color = Color(0, 0, 0, 1)
+fog_light_energy = 0.0
+fog_sun_scatter = 1.0
+fog_density = 0.3091
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.3662
+volumetric_fog_albedo = Color(0, 0, 0, 1)
+volumetric_fog_length = 20.24
+
+[sub_resource type="LabelSettings" id="LabelSettings_k2wb7"]
+font = ExtResource("4_wcy82")
+font_size = 256
+font_color = Color(0.0687983, 0.0687983, 0.0687983, 1)
+
+[node name="alley_scene" instance=ExtResource("1_u3hr3")]
+script = ExtResource("2_2gpmw")
+
+[node name="canvas" parent="painting_frame_01" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_l5v8p")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="5"]
+environment = SubResource("Environment_jd1pl")
+
+[node name="Camera3D" type="Camera3D" parent="." index="6"]
+transform = Transform3D(0.344693, -0.164797, 0.924137, 0.00551197, 0.984808, 0.173561, -0.938699, -0.0547314, 0.340365, 4.00579, 3.14061, 1.84742)
+fov = 70.2034
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Camera3D" index="0"]
+transform = Transform3D(0.977074, -0.191048, -0.0939484, 0.21087, 0.807672, 0.550636, -0.0293184, -0.557823, 0.829442, -0.188135, 1.84827, 1.26045)
+light_energy = 13.033
+spot_range = 78.188
+
+[node name="MainMenu2" type="TextureButton" parent="." index="7"]
+z_index = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -644.591
+offset_top = -156.14
+offset_right = 1915.41
+offset_bottom = 483.86
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.053, 0.053)
+texture_normal = ExtResource("2_nk86v")
+texture_hover = ExtResource("3_ecbwn")
+
+[node name="Label" type="Label" parent="MainMenu2" index="0"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -719.0
+offset_top = -189.0
+offset_right = 719.0
+offset_bottom = 189.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Main Menu"
+label_settings = SubResource("LabelSettings_k2wb7")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." index="8"]
+offset_left = -608.0
+offset_right = -96.0
+offset_bottom = 512.0
+scale = Vector2(1.185, 1.185)
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" index="0"]
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="TextureRect" type="TextureRect" parent="SubViewportContainer/SubViewport" index="0"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 4

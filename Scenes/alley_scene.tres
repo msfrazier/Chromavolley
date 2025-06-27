@@ -1,0 +1,36 @@
+[gd_resource type="VisualShader" load_steps=4 format=3 uid="uid://cqd03bsr8mvh0"]
+
+[ext_resource type="Texture2D" uid="uid://bs067hxoihk8i" path="res://finished.png" id="1_6tulg"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_3ouum"]
+texture = ExtResource("1_6tulg")
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeTextureParameterTriplanar" id="VisualShaderNodeTextureParameterTriplanar_8m1uv"]
+parameter_name = "TextureParameterTriplanar"
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+uniform sampler2D tex_frg_2 : source_color;
+
+
+
+void fragment() {
+// Texture2D:2
+	vec4 n_out2p0 = texture(tex_frg_2, UV);
+
+
+// Output:0
+	ALBEDO = vec3(n_out2p0.xyz);
+
+
+}
+"
+graph_offset = Vector2(-726.476, -9.27419)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_3ouum")
+nodes/fragment/2/position = Vector2(-200, 80)
+nodes/fragment/3/node = SubResource("VisualShaderNodeTextureParameterTriplanar_8m1uv")
+nodes/fragment/3/position = Vector2(-680, 140)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0)

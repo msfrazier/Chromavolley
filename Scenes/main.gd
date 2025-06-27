@@ -23,6 +23,7 @@ var paint_area : Area2D
 var pauseContainer
 var img : Image
 var rd : RenderingDevice
+var animation_player : AnimationPlayer
 
 var rect
 var top_l 
@@ -42,6 +43,7 @@ func _ready():
 	player_score_label = $player_score
 	opponent_score_label = $opponent_score
 	paint_trail_example = $paintTrailExample
+	animation_player = $AnimationPlayer
 	player_score_label.set_text(str(player_score))
 	opponent_score_label.set_text(str(opponent_score))
 	paint_trails = [
@@ -129,17 +131,31 @@ func return_to_main_menu():
 	get_tree().change_scene_to_packed(game_scene)
 	
 func finished(won:bool):
+	print(rect.position+paint_area.position)
+	var end_screen = get_viewport().get_texture().get_image().get_region(
+		Rect2(
+			rect.position+paint_area.position,
+			rect.size
+		)
+	)
+	end_screen.save_png("finished.png")
+	GlobalState.canvas = end_screen
+	var end_scene : PackedScene
 	if won:
 		$finished_label.set_text("Success!")
 	else:
 		$finished_label.set_text("Failure...")
+		end_scene = load("res://Scenes/alley_scene.tscn")
 	var tween = get_tree().create_tween().set_parallel(true)
 	camera = Camera2D.new()
 	paint_area.add_child(camera)
 	tween.tween_property(camera,"zoom",Vector2(2,2),1).set_trans(Tween.TRANS_QUAD)
 	tween.tween_property($finished_label,"visible_ratio",1,2)
 	await tween.finished
-	$MainMenu2.show()
+	animation_player.play("fade_out")
+	await animation_player.animation_finished
+	print("done2")
+	get_tree().change_scene_to_packed(end_scene)
 	pass
 
 func _on_ball_scored(side):
@@ -161,20 +177,20 @@ func _on_ball_scored(side):
 	
 	if score_goal != -1:
 		if player_score == score_goal:
-			print("Player Won!!")
 			finished(true)
 			return true
 		
 		elif opponent_score == score_goal:
-			print("Opponent Won...")
 			finished(false)
 			return true
 			
 	elif paint_goal != -1:
 		
 		if player_score + opponent_score >= volley_limit:
+			$color_check_timer.stop()
 			print("Failure...")
-			return_to_main_menu()
+			finished(false)
+			return true
 			
 		
 		

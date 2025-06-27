@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dt23sbgs426du"]
+[gd_scene load_steps=21 format=3 uid="uid://dt23sbgs426du"]
 
 [ext_resource type="PackedScene" uid="uid://ds2fj3awyna8w" path="res://Scenes/paddle.tscn" id="1_1ofa8"]
 [ext_resource type="Script" path="res://Scenes/main.gd" id="1_gswkd"]
@@ -11,7 +11,6 @@
 [ext_resource type="Script" path="res://Scenes/color_check_timer.gd" id="9_o1i35"]
 [ext_resource type="Texture2D" uid="uid://dpwis30e680yb" path="res://Scenes/Sprites/buttons.png" id="9_ru650"]
 [ext_resource type="Texture2D" uid="uid://cu2ogk6puyt4k" path="res://Scenes/Sprites/buttons_hover.png" id="10_j2uef"]
-[ext_resource type="Texture2D" uid="uid://cdutrdloyjk8t" path="res://Scenes/Sprites/ending_outline.png" id="11_2es1m"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_aq4xq"]
 font = ExtResource("8_7ku17")
@@ -83,8 +82,9 @@ func _on_unpause_button_up():
 
 func _on_main_menu_button_up():
 	get_tree().paused = false
-	var game_scene = load(\"res://Scenes/start.tscn\")
-	get_tree().change_scene_to_file(\"res://Scenes/start.tscn\")
+	main.return_to_main_menu()
+	#var game_scene = load(\"res://Scenes/start.tscn\")
+	#get_tree().change_scene_to_file(\"res://Scenes/start.tscn\")
 	pass # Replace with function body.
 "
 
@@ -93,6 +93,27 @@ font = ExtResource("8_7ku17")
 font_size = 256
 font_color = Color(0.0687983, 0.0687983, 0.0687983, 1)
 
+[sub_resource type="Animation" id="Animation_p152i"]
+resource_name = "fade_out"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("fade_out:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j605e"]
+_data = {
+"fade_out": SubResource("Animation_p152i")
+}
+
 [node name="main" type="Node"]
 script = ExtResource("1_gswkd")
 ball_scene = ExtResource("2_jcuw7")
@@ -100,6 +121,15 @@ trail_scene = ExtResource("3_8xroi")
 score_goal = -1
 paint_goal = -1.0
 volley_limit = -1.0
+
+[node name="fade_out" type="ColorRect" parent="."]
+modulate = Color(0, 0, 0, 0)
+z_index = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -200,13 +230,6 @@ autostart = true
 [node name="color_check_timer" type="Timer" parent="."]
 script = ExtResource("9_o1i35")
 
-[node name="EndingOutline" type="Sprite2D" parent="."]
-process_mode = 4
-visible = false
-position = Vector2(576.058, 323.704)
-scale = Vector2(1.483, 2.31)
-texture = ExtResource("11_2es1m")
-
 [node name="paint_area" type="Area2D" parent="."]
 position = Vector2(576, 324)
 
@@ -273,6 +296,11 @@ grow_vertical = 2
 text = "Main Menu"
 label_settings = SubResource("LabelSettings_brwld")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_j605e")
+}
+
 [connection signal="check_color_percentage" from="." to="." method="_on_check_color_percentage"]
 [connection signal="send_opponent_info" from="." to="opponent" method="_on_main_send_opponent_info"]
 [connection signal="send_pause" from="." to="pauseContainer" method="_on_main_send_pause"]
@@ -287,7 +315,6 @@ label_settings = SubResource("LabelSettings_brwld")
 [connection signal="timeout" from="start_timer" to="." method="_on_start_timer_timeout"]
 [connection signal="timeout" from="start_timer" to="ball" method="_on_start_timer_timeout"]
 [connection signal="check_color_percentage" from="color_check_timer" to="." method="_on_check_color_percentage"]
-[connection signal="timeout" from="color_check_timer" to="." method="_on_color_check_timer_timeout"]
 [connection signal="timeout" from="color_check_timer" to="color_check_timer" method="_on_timeout"]
 [connection signal="button_up" from="pauseContainer/Unpause" to="pauseContainer" method="_on_unpause_button_up"]
 [connection signal="button_up" from="pauseContainer/MainMenu" to="pauseContainer" method="_on_main_menu_button_up"]
