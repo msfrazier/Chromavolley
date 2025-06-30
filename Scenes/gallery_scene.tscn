@@ -1,0 +1,78 @@
+[gd_scene load_steps=9 format=3 uid="uid://bivri5voh8fm3"]
+
+[ext_resource type="PackedScene" uid="uid://r4hgxwx2svdt" path="res://Scenes/Models/gallery_scene.glb" id="1_vfhj7"]
+[ext_resource type="Script" path="res://Scenes/gallery_scene.gd" id="2_7jl23"]
+[ext_resource type="Texture2D" uid="uid://dpwis30e680yb" path="res://Scenes/Sprites/buttons.png" id="3_jqd6x"]
+[ext_resource type="Texture2D" uid="uid://cu2ogk6puyt4k" path="res://Scenes/Sprites/buttons_hover.png" id="4_gjfkc"]
+[ext_resource type="FontFile" uid="uid://c444dtm50kikd" path="res://Scenes/Sprites/fonts/FingerPaint-Regular.ttf" id="5_5uiyq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_emot4"]
+
+[sub_resource type="Environment" id="Environment_v1eth"]
+background_energy_multiplier = 7.02
+
+[sub_resource type="LabelSettings" id="LabelSettings_y2rea"]
+font = ExtResource("5_5uiyq")
+font_size = 256
+font_color = Color(0.0687983, 0.0687983, 0.0687983, 1)
+
+[node name="gallery_scene" instance=ExtResource("1_vfhj7")]
+script = ExtResource("2_7jl23")
+
+[node name="ColorRect" type="ColorRect" parent="." index="0"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="wall" parent="." index="1"]
+transform = Transform3D(0, 2.14475, 0, -1.73473, 0, 0, 0, 0, 4.06002, 0, 0, 0)
+
+[node name="canvas" parent="painting_frame_01" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_emot4")
+
+[node name="Camera3D" type="Camera3D" parent="." index="6"]
+transform = Transform3D(-0.266868, 0, 0.963733, 0, 1, 0, -0.963733, 0, -0.266868, 1.59813, 0.853135, -0.349375)
+environment = SubResource("Environment_v1eth")
+current = true
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." index="7"]
+transform = Transform3D(0.96933, -1.07427e-08, 0.245764, -0.245764, -4.23707e-08, 0.96933, -3.38101e-16, -1, -4.37114e-08, 1.00048, 3.2113, 0)
+light_energy = 4.57
+
+[node name="MainMenu2" type="TextureButton" parent="." index="8"]
+z_index = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -644.591
+offset_top = -156.14
+offset_right = 1915.41
+offset_bottom = 483.86
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.053, 0.053)
+texture_normal = ExtResource("3_jqd6x")
+texture_hover = ExtResource("4_gjfkc")
+
+[node name="Label" type="Label" parent="MainMenu2" index="0"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -719.0
+offset_top = -189.0
+offset_right = 719.0
+offset_bottom = 189.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Main Menu"
+label_settings = SubResource("LabelSettings_y2rea")
+
+[connection signal="button_up" from="MainMenu2" to="." method="_on_main_menu_2_button_up"]

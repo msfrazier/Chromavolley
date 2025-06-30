@@ -42,7 +42,6 @@ func _physics_process(delta):
 	
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
-	#print("final velocity: ", velocity)
 	position = position.clamp(Vector2(0,col_height*sprite_size), Vector2(screen_size.x,(screen_size.y-(col_height*sprite_size))))
 	move_and_slide()
 	

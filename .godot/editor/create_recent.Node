@@ -1,11 +1,11 @@
-AnimationPlayer
 ColorRect
+SpotLight3D
+Camera3D
+AnimationPlayer
 Node2D
 TextureRect
 SubViewport
 SubViewportContainer
-SpotLight3D
-Camera3D
 WorldEnvironment
 TextureButton
 Node

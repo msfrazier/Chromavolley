@@ -65,10 +65,6 @@ func _ready():
 		paint_goal = GlobalState.paint_goal/100
 		volley_limit = GlobalState.volley_limit
 		
-		print(rect)
-		print(top_l)
-		print(bottom_r)
-		
 		total_pixels = (bottom_r.x - top_l.x) * (bottom_r.y - top_l.y)
 
 		pixel_count_thread = Thread.new()
@@ -131,7 +127,7 @@ func return_to_main_menu():
 	get_tree().change_scene_to_packed(game_scene)
 	
 func finished(won:bool):
-	print(rect.position+paint_area.position)
+	ball_instance.queue_free()
 	var end_screen = get_viewport().get_texture().get_image().get_region(
 		Rect2(
 			rect.position+paint_area.position,
@@ -143,6 +139,7 @@ func finished(won:bool):
 	var end_scene : PackedScene
 	if won:
 		$finished_label.set_text("Success!")
+		end_scene = load("res://Scenes/gallery_scene.tscn")
 	else:
 		$finished_label.set_text("Failure...")
 		end_scene = load("res://Scenes/alley_scene.tscn")
@@ -154,7 +151,6 @@ func finished(won:bool):
 	await tween.finished
 	animation_player.play("fade_out")
 	await animation_player.animation_finished
-	print("done2")
 	get_tree().change_scene_to_packed(end_scene)
 	pass
 
@@ -188,7 +184,6 @@ func _on_ball_scored(side):
 		
 		if player_score + opponent_score >= volley_limit:
 			$color_check_timer.stop()
-			print("Failure...")
 			finished(false)
 			return true
 			
@@ -253,12 +248,11 @@ func _on_check_color_percentage(img):
 				if pixel.r<0.95 or pixel.b<0.95 or pixel.g<0.95:
 					colored_pixels += 1
 	ratio = (colored_pixels)/(total_pixels/16)
-	#print("ratio: ", ratio)
 	if ratio < paint_goal:
 		pass
 	else:
-		print("Finished")
+		$color_check_timer.stop()
 		GlobalState.completed_levels.append(GlobalState.current_level)
-		return_to_main_menu()
+		finished(true)
 
 	pass # Replace with function body.

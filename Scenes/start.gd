@@ -35,7 +35,6 @@ func _ready():
 	
 	#connect paint level buttons automatically
 	var completed_levels = GlobalState.completed_levels
-	print(completed_levels)
 	var completed_button_texture = load("res://Scenes/Sprites/buttons_completed.png")
 	var completed_button_hover_texture = load("res://Scenes/Sprites/buttons_completed_hover.png")
 	for hbox in [$HBoxContainer,$HBoxContainer2]:
@@ -232,7 +231,6 @@ func _on_back_button_button_up():
 		var tween2 = get_tree().create_tween().set_parallel(true)
 		tween2.tween_property(classicModeButton,"position",Vector2(440,240),menu_tween_speed)
 		tween2.tween_property($paintModeButton, "position", Vector2(440, 430), menu_tween_speed)
-		print(2)
 	elif score_slider.visible:
 		var tween = get_tree().create_tween().set_parallel(true)
 		tween.tween_property($classicScoreLabel,"position",Vector2(1177,152),menu_tween_speed)

@@ -28,14 +28,23 @@ font_color = Color(0.0687983, 0.0687983, 0.0687983, 1)
 [node name="alley_scene" instance=ExtResource("1_u3hr3")]
 script = ExtResource("2_2gpmw")
 
+[node name="ColorRect" type="ColorRect" parent="." index="0"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
 [node name="canvas" parent="painting_frame_01" index="0"]
 surface_material_override/0 = SubResource("StandardMaterial3D_l5v8p")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="5"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="6"]
 environment = SubResource("Environment_jd1pl")
 
-[node name="Camera3D" type="Camera3D" parent="." index="6"]
+[node name="Camera3D" type="Camera3D" parent="." index="7"]
 transform = Transform3D(0.344693, -0.164797, 0.924137, 0.00551197, 0.984808, 0.173561, -0.938699, -0.0547314, 0.340365, 4.00579, 3.14061, 1.84742)
+current = true
 fov = 70.2034
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Camera3D" index="0"]
@@ -43,7 +52,7 @@ transform = Transform3D(0.977074, -0.191048, -0.0939484, 0.21087, 0.807672, 0.55
 light_energy = 13.033
 spot_range = 78.188
 
-[node name="MainMenu2" type="TextureButton" parent="." index="7"]
+[node name="MainMenu2" type="TextureButton" parent="." index="8"]
 z_index = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -76,7 +85,7 @@ grow_vertical = 2
 text = "Main Menu"
 label_settings = SubResource("LabelSettings_k2wb7")
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="." index="8"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." index="9"]
 offset_left = -608.0
 offset_right = -96.0
 offset_bottom = 512.0
@@ -94,3 +103,5 @@ grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 1
 stretch_mode = 4
+
+[connection signal="button_up" from="MainMenu2" to="." method="_on_main_menu_2_button_up"]
