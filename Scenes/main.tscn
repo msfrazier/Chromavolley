@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dt23sbgs426du"]
+[gd_scene load_steps=22 format=3 uid="uid://dt23sbgs426du"]
 
 [ext_resource type="PackedScene" uid="uid://ds2fj3awyna8w" path="res://Scenes/paddle.tscn" id="1_1ofa8"]
 [ext_resource type="Script" path="res://Scenes/main.gd" id="1_gswkd"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://Scenes/color_check_timer.gd" id="9_o1i35"]
 [ext_resource type="Texture2D" uid="uid://dpwis30e680yb" path="res://Scenes/Sprites/buttons.png" id="9_ru650"]
 [ext_resource type="Texture2D" uid="uid://cu2ogk6puyt4k" path="res://Scenes/Sprites/buttons_hover.png" id="10_j2uef"]
+[ext_resource type="AudioStream" uid="uid://ckobr2rqdemoe" path="res://Scenes/Audio/chromavolley sfx.wav" id="12_2ybwl"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_aq4xq"]
 font = ExtResource("8_7ku17")
@@ -300,6 +301,9 @@ label_settings = SubResource("LabelSettings_brwld")
 libraries = {
 "": SubResource("AnimationLibrary_j605e")
 }
+
+[node name="sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_2ybwl")
 
 [connection signal="check_color_percentage" from="." to="." method="_on_check_color_percentage"]
 [connection signal="send_opponent_info" from="." to="opponent" method="_on_main_send_opponent_info"]

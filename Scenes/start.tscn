@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://jtjv3gh86v6i"]
+[gd_scene load_steps=16 format=3 uid="uid://jtjv3gh86v6i"]
 
 [ext_resource type="Script" path="res://Scenes/start.gd" id="1_mt8jw"]
 [ext_resource type="FontFile" uid="uid://c444dtm50kikd" path="res://Scenes/Sprites/fonts/FingerPaint-Regular.ttf" id="2_63ujw"]
 [ext_resource type="Texture2D" uid="uid://oxqd5o1ddbej" path="res://Scenes/Sprites/images/ram-s-head-white-hollyhock-hills-1935.jpg!Large.jpg" id="3_qsrbq"]
+[ext_resource type="AudioStream" uid="uid://b468q4e5j73p7" path="res://Scenes/Audio/chromavolley title.wav" id="4_hmtjo"]
 [ext_resource type="Texture2D" uid="uid://dpwis30e680yb" path="res://Scenes/Sprites/buttons.png" id="4_u3vwt"]
 [ext_resource type="Texture2D" uid="uid://cu2ogk6puyt4k" path="res://Scenes/Sprites/buttons_hover.png" id="5_o3dlb"]
 
@@ -134,6 +135,15 @@ outline_color = Color(0, 0, 0, 1)
 [node name="start" type="Node"]
 script = ExtResource("1_mt8jw")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+modulate = Color(0, 0, 0, 0)
+z_index = 14
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="titleLabel" type="Label" parent="."]
 z_index = 4
 anchors_preset = 15
@@ -210,6 +220,9 @@ libraries = {
 [node name="Timer" type="Timer" parent="."]
 wait_time = 8.0
 autostart = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_hmtjo")
 
 [node name="startButton" type="TextureButton" parent="."]
 z_index = 4

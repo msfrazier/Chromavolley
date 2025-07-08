@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://2d54sr0xa1p0"]
+[gd_scene load_steps=10 format=3 uid="uid://2d54sr0xa1p0"]
 
 [ext_resource type="PackedScene" uid="uid://5dthr4vavagk" path="res://Scenes/Models/alley_scene.glb" id="1_u3hr3"]
 [ext_resource type="Script" path="res://Scenes/alley_scene.gd" id="2_2gpmw"]
 [ext_resource type="Texture2D" uid="uid://dpwis30e680yb" path="res://Scenes/Sprites/buttons.png" id="2_nk86v"]
 [ext_resource type="Texture2D" uid="uid://cu2ogk6puyt4k" path="res://Scenes/Sprites/buttons_hover.png" id="3_ecbwn"]
 [ext_resource type="FontFile" uid="uid://c444dtm50kikd" path="res://Scenes/Sprites/fonts/FingerPaint-Regular.ttf" id="4_wcy82"]
+[ext_resource type="AudioStream" uid="uid://rlkfs42vseco" path="res://Scenes/Audio/chromavolley_failure.wav" id="6_0lfby"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l5v8p"]
 uv1_triplanar_sharpness = 0.267943
@@ -103,5 +104,9 @@ grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 1
 stretch_mode = 4
+
+[node name="music" type="AudioStreamPlayer3D" parent="." index="10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.28589, 2.87689, 0)
+stream = ExtResource("6_0lfby")
 
 [connection signal="button_up" from="MainMenu2" to="." method="_on_main_menu_2_button_up"]

@@ -24,6 +24,7 @@ var pauseContainer
 var img : Image
 var rd : RenderingDevice
 var animation_player : AnimationPlayer
+var sfx : AudioStreamPlayer
 
 var rect
 var top_l 
@@ -44,6 +45,7 @@ func _ready():
 	opponent_score_label = $opponent_score
 	paint_trail_example = $paintTrailExample
 	animation_player = $AnimationPlayer
+	sfx = $sfx
 	player_score_label.set_text(str(player_score))
 	opponent_score_label.set_text(str(opponent_score))
 	paint_trails = [
@@ -218,12 +220,22 @@ func _on_start_timer_timeout():
 	pass
 
 func _on_paddle_hit(color, normal):
+	if sfx.pitch_scale > 1.3 or sfx.pitch_scale < 0.7:
+		sfx.pitch_scale = 1
+	else:
+		sfx.pitch_scale = sfx.pitch_scale + randf_range(-0.2,0.2)
+	sfx.play()
 	create_new_trail(true)
 	trail.default_color = color
 	pass # Replace with function body.
 
 
 func _on_opponent_hit(color, normal):
+	if sfx.pitch_scale > 1.3 or sfx.pitch_scale < 0.7:
+		sfx.pitch_scale = 1
+	else:
+		sfx.pitch_scale = sfx.pitch_scale + randf_range(-0.2,0.2)
+	sfx.play()
 	create_new_trail(false)
 	trail.default_color = color
 	pass # Replace with function body.

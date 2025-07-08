@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bivri5voh8fm3"]
+[gd_scene load_steps=10 format=3 uid="uid://bivri5voh8fm3"]
 
 [ext_resource type="PackedScene" uid="uid://r4hgxwx2svdt" path="res://Scenes/Models/gallery_scene.glb" id="1_vfhj7"]
 [ext_resource type="Script" path="res://Scenes/gallery_scene.gd" id="2_7jl23"]
 [ext_resource type="Texture2D" uid="uid://dpwis30e680yb" path="res://Scenes/Sprites/buttons.png" id="3_jqd6x"]
 [ext_resource type="Texture2D" uid="uid://cu2ogk6puyt4k" path="res://Scenes/Sprites/buttons_hover.png" id="4_gjfkc"]
 [ext_resource type="FontFile" uid="uid://c444dtm50kikd" path="res://Scenes/Sprites/fonts/FingerPaint-Regular.ttf" id="5_5uiyq"]
+[ext_resource type="AudioStream" uid="uid://gql0dbt6hpht" path="res://Scenes/Audio/chromavolley_success.wav" id="6_ucoh5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_emot4"]
 
@@ -74,5 +75,8 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Main Menu"
 label_settings = SubResource("LabelSettings_y2rea")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="9"]
+stream = ExtResource("6_ucoh5")
 
 [connection signal="button_up" from="MainMenu2" to="." method="_on_main_menu_2_button_up"]

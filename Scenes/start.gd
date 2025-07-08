@@ -18,7 +18,7 @@ var menu_tween_speed := 0.3
 @onready var score_slider := $scoreSlider
 @onready var slider_score := $scoreSlider/Label
 @onready var paintExplanation := $paintExplanation
-
+@onready var music := $AudioStreamPlayer
 #var from
 #var to
 #var from_next
@@ -32,6 +32,8 @@ func _ready():
 	exitButton = $exitButton
 	classicModeButton = $classicModeButton
 	classicPlayButton = $classicPlayButton
+	
+	music.play()
 	
 	#connect paint level buttons automatically
 	var completed_levels = GlobalState.completed_levels
@@ -167,6 +169,11 @@ func _on_score_slider_value_changed(value):
 func _on_classic_play_button_button_up():
 	var game_scene= load("res://Scenes/main.tscn")
 	GlobalState.score_goal = score_slider.value
+	var tween = get_tree().create_tween().set_parallel(true)
+	tween.tween_property($ColorRect,'modulate:a',1,.5)
+	tween.tween_property(music,'volume_db',-20,0.5)
+	await tween.finished
+	print($ColorRect.modulate)
 	get_tree().change_scene_to_packed(game_scene)
 	pass # Replace with function body.
 
@@ -191,6 +198,10 @@ func _on_paint_level_selected(level_selection : String):
 	GlobalState.paint_goal = temp[0]
 	GlobalState.volley_limit = temp[1]
 	GlobalState.current_level = level_selection
+	var tween = get_tree().create_tween().set_parallel(true)
+	tween.tween_property($ColorRect,'modulate:a',1,0.5)
+	tween.tween_property(music,'volume_db',-20,0.5)
+	await tween.finished
 	get_tree().change_scene_to_packed(game_scene)
 	pass
 

@@ -1,4 +1,6 @@
 ColorRect
+AudioStreamPlayer
+AudioStreamPlayer3D
 SpotLight3D
 Camera3D
 AnimationPlayer
@@ -10,5 +12,3 @@ WorldEnvironment
 TextureButton
 Node
 Label
-HBoxContainer
-VBoxContainer
