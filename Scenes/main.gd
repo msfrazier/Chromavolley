@@ -6,7 +6,7 @@ extends Node
 @export var paint_goal : float
 @export var volley_limit : float
 
-#@onready var colored_pixels = 0
+@onready var music : AudioStreamPlayer = $music
 
 var player_score
 var opponent_score
@@ -79,6 +79,8 @@ func _ready():
 	
 	trail = new_trail
 	ball_instance = $ball
+	
+	music.play()
 	
 	pass # Replace with function body.
 
@@ -214,6 +216,8 @@ func _on_ball_scored(side):
 func _on_start_timer_timeout():
 
 	fade("out")
+	if $start_timer.wait_time != 0.5:
+		$start_timer.set_wait_time(0.5)
 	if paint_goal != -1:
 		$color_check_timer.start()
 	
