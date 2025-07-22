@@ -38,6 +38,7 @@ signal send_pause()
 signal check_color_percentage
 
 func _ready():
+
 	rd = RenderingServer.get_rendering_device()
 	player_score = 0
 	opponent_score = 0
@@ -110,7 +111,7 @@ func create_new_trail(player_hit):
 	pass
 
 func fade(type:String):
-	fade_tween = get_tree().create_tween().set_parallel(true)
+	fade_tween = get_tree().create_tween().set_parallel(true).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUART)
 	if type=="out":
 		fade_tween.tween_property(player_score_label,"modulate:a",0,1)
 		fade_tween.tween_property(opponent_score_label,"modulate:a",0,1)
@@ -138,7 +139,6 @@ func finished(won:bool):
 			rect.size
 		)
 	)
-	end_screen.save_png("finished.png")
 	GlobalState.canvas = end_screen
 	var end_scene : PackedScene
 	if won:
@@ -252,12 +252,12 @@ func _on_paddle_switch_trail(l_or_r):
 		current_trail_texture = (current_trail_texture - 1) % 3
 	paint_trail_example.texture = paint_trails[current_trail_texture]
 	paint_trail_example.modulate.a = 1
+	fade("out")
 
 
 func _on_check_color_percentage(img):
 	var colored_pixels = 0
 	var ratio = colored_pixels/total_pixels
-	#await RenderingServer.frame_post_draw
 	for x in range(top_l.x,bottom_r.x,4):
 			for y in range(top_l.y,bottom_r.y,4):
 				var pixel = img.get_pixel(x,y)

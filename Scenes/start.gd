@@ -33,6 +33,9 @@ func _ready():
 	classicModeButton = $classicModeButton
 	classicPlayButton = $classicPlayButton
 	
+	if OS.has_feature("web"):
+		$exitButton.hide()
+	
 	music.play()
 	
 	#connect paint level buttons automatically

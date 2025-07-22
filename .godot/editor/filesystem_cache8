@@ -1,38 +1,39 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1753023813
-finished.png::CompressedTexture2D::3703369089050922442::1753024005::1753024016::1::::<><>::
+::res://::1753128360
+export_presets.cfg::TextFile::-1::1753128301::0::1::::<><>::
 GlobalState.gd::GDScript::-1::1751054321::0::1::::<>Node<>::
 icon.svg::CompressedTexture2D::4114684406757834287::1746895740::1746895745::1::::<><>::
 README.md::TextFile::-1::1746895962::0::1::::<><>::
-::res://Scenes/::1753023941
+::res://Scenes/::1753128355
 alley_scene.gd::GDScript::-1::1751933878::0::1::::<>Node3D<>::
-alley_scene.gdshader::Shader::-1::1753023941::0::1::::<><>::
-alley_scene.tres::VisualShader::5903624007052225387::1752349950::0::1::::<><>::uid://bs067hxoihk8i::::res://finished.png
-alley_scene.tscn::PackedScene::1903166182143919183::1753023941::0::1::::<><>::uid://5dthr4vavagk::::res://Scenes/Models/alley_scene.glb<>res://Scenes/alley_scene.gd<>uid://dpwis30e680yb::::res://Scenes/Sprites/buttons.png<>uid://cu2ogk6puyt4k::::res://Scenes/Sprites/buttons_hover.png<>uid://c444dtm50kikd::::res://Scenes/Sprites/fonts/FingerPaint-Regular.ttf<>uid://rlkfs42vseco::::res://Scenes/Audio/chromavolley_failure.wav
+alley_scene.gdshader::Shader::-1::1753128355::0::1::::<><>::
+alley_scene.tres::VisualShader::5903624007052225387::1753123447::0::1::::<><>::
+alley_scene.tscn::PackedScene::1903166182143919183::1753128355::0::1::::<><>::uid://5dthr4vavagk::::res://Scenes/Models/alley_scene.glb<>res://Scenes/alley_scene.gd<>uid://dpwis30e680yb::::res://Scenes/Sprites/buttons.png<>uid://cu2ogk6puyt4k::::res://Scenes/Sprites/buttons_hover.png<>uid://c444dtm50kikd::::res://Scenes/Sprites/fonts/FingerPaint-Regular.ttf<>uid://rlkfs42vseco::::res://Scenes/Audio/chromavolley_failure.wav
 ball.gd::GDScript::-1::1746990308::0::1::::<>Area2D<>::
-ball.tscn::PackedScene::394931622281931740::1753023941::0::1::::<><>::uid://dutldgv14pkja::::res://Scenes/Sprites/ball_mod.svg
+ball.tscn::PackedScene::394931622281931740::1753128355::0::1::::<><>::uid://dutldgv14pkja::::res://Scenes/Sprites/ball_mod.svg
 ColorRect.gd::GDScript::-1::1747089241::0::1::::<>ColorRect<>::
 color_check_timer.gd::GDScript::-1::1748798253::0::1::::<>Timer<>::
 gallery_scene.gd::GDScript::-1::1751319156::0::1::::<>Node3D<>::
-gallery_scene.tscn::PackedScene::2992331449649035072::1753023941::0::1::::<><>::uid://r4hgxwx2svdt::::res://Scenes/Models/gallery_scene.glb<>res://Scenes/gallery_scene.gd<>uid://dpwis30e680yb::::res://Scenes/Sprites/buttons.png<>uid://cu2ogk6puyt4k::::res://Scenes/Sprites/buttons_hover.png<>uid://c444dtm50kikd::::res://Scenes/Sprites/fonts/FingerPaint-Regular.ttf<>uid://gql0dbt6hpht::::res://Scenes/Audio/chromavolley_success.wav
+gallery_scene.tscn::PackedScene::2992331449649035072::1753128355::0::1::::<><>::uid://r4hgxwx2svdt::::res://Scenes/Models/gallery_scene.glb<>res://Scenes/gallery_scene.gd<>uid://dpwis30e680yb::::res://Scenes/Sprites/buttons.png<>uid://cu2ogk6puyt4k::::res://Scenes/Sprites/buttons_hover.png<>uid://c444dtm50kikd::::res://Scenes/Sprites/fonts/FingerPaint-Regular.ttf<>uid://gql0dbt6hpht::::res://Scenes/Audio/chromavolley_success.wav
 main2.tscn::PackedScene::3012647192218725738::1748797214::0::1::::<><>::res://Scenes/main.gd<>uid://fvkp33ljdmiu::::res://Scenes/ball.tscn<>uid://cvmw6i2f03ss8::::res://Scenes/trail.tscn<>res://Scenes/ColorRect.gd<>uid://cxg6tdocwgts8::::res://Scenes/Sprites/paint_trail.png<>uid://ds2fj3awyna8w::::res://Scenes/paddle.tscn<>uid://dlnmvbn0h3ci8::::res://Scenes/opponent.tscn<>uid://c444dtm50kikd::::res://Scenes/Sprites/fonts/FingerPaint-Regular.ttf<>uid://cdutrdloyjk8t::::res://Scenes/Sprites/ending_outline.png<>uid://dpwis30e680yb::::res://Scenes/Sprites/buttons.png<>uid://cu2ogk6puyt4k::::res://Scenes/Sprites/buttons_hover.png
-main.gd::GDScript::-1::1753023941::0::1::::<>Node<>::
-main.tscn::PackedScene::8550320562299146718::1753023941::0::1::::<><>::uid://ds2fj3awyna8w::::res://Scenes/paddle.tscn<>res://Scenes/main.gd<>uid://fvkp33ljdmiu::::res://Scenes/ball.tscn<>uid://cvmw6i2f03ss8::::res://Scenes/trail.tscn<>res://Scenes/ColorRect.gd<>uid://dlnmvbn0h3ci8::::res://Scenes/opponent.tscn<>uid://cxg6tdocwgts8::::res://Scenes/Sprites/paint_trail.png<>uid://c444dtm50kikd::::res://Scenes/Sprites/fonts/FingerPaint-Regular.ttf<>res://Scenes/color_check_timer.gd<>uid://dpwis30e680yb::::res://Scenes/Sprites/buttons.png<>uid://cu2ogk6puyt4k::::res://Scenes/Sprites/buttons_hover.png<>uid://ckobr2rqdemoe::::res://Scenes/Audio/chromavolley sfx.wav<>uid://d4feth121lwan::::res://Scenes/Audio/chromavolley_4.wav
+main.gd::GDScript::-1::1753045391::0::1::::<>Node<>::
+main.tscn::PackedScene::8550320562299146718::1753128355::0::1::::<><>::uid://ds2fj3awyna8w::::res://Scenes/paddle.tscn<>res://Scenes/main.gd<>uid://fvkp33ljdmiu::::res://Scenes/ball.tscn<>uid://cvmw6i2f03ss8::::res://Scenes/trail.tscn<>res://Scenes/ColorRect.gd<>uid://dlnmvbn0h3ci8::::res://Scenes/opponent.tscn<>uid://cxg6tdocwgts8::::res://Scenes/Sprites/paint_trail.png<>uid://c444dtm50kikd::::res://Scenes/Sprites/fonts/FingerPaint-Regular.ttf<>res://Scenes/color_check_timer.gd<>uid://dpwis30e680yb::::res://Scenes/Sprites/buttons.png<>uid://cu2ogk6puyt4k::::res://Scenes/Sprites/buttons_hover.png<>uid://ckobr2rqdemoe::::res://Scenes/Audio/chromavolley sfx.wav<>uid://d4feth121lwan::::res://Scenes/Audio/chromavolley_4.wav
 opponent.gd::GDScript::-1::1751233457::0::1::::<>CharacterBody2D<>::
-opponent.tscn::PackedScene::7958942421237787497::1753023941::0::1::::<><>::res://Scenes/opponent.gd<>uid://ni6ra4wkw381::::res://Scenes/Sprites/paddle_1_mod.svg
+opponent.tscn::PackedScene::7958942421237787497::1753128355::0::1::::<><>::res://Scenes/opponent.gd<>uid://ni6ra4wkw381::::res://Scenes/Sprites/paddle_1_mod.svg
 paddle.gd::GDScript::-1::1748273932::0::1::::<>Area2D<>::
-paddle.tscn::PackedScene::8478720564718443936::1753023941::0::1::::<><>::res://Scenes/paddle.gd<>uid://ni6ra4wkw381::::res://Scenes/Sprites/paddle_1_mod.svg
+paddle.tscn::PackedScene::8478720564718443936::1753128355::0::1::::<><>::res://Scenes/paddle.gd<>uid://ni6ra4wkw381::::res://Scenes/Sprites/paddle_1_mod.svg
 pauseContainer.gd::GDScript::-1::1748141282::0::1::::<>VBoxContainer<>::
-start.gd::GDScript::-1::1752349950::0::1::::<>Node<>::
-start.tscn::PackedScene::671508204962349538::1753023941::0::1::::<><>::res://Scenes/start.gd<>uid://c444dtm50kikd::::res://Scenes/Sprites/fonts/FingerPaint-Regular.ttf<>uid://oxqd5o1ddbej::::res://Scenes/Sprites/images/ram-s-head-white-hollyhock-hills-1935.jpg!Large.jpg<>uid://b468q4e5j73p7::::res://Scenes/Audio/chromavolley title.wav<>uid://dpwis30e680yb::::res://Scenes/Sprites/buttons.png<>uid://cu2ogk6puyt4k::::res://Scenes/Sprites/buttons_hover.png
-trail.tscn::PackedScene::6272971212443741341::1753023941::0::1::::<><>::uid://cxg6tdocwgts8::::res://Scenes/Sprites/paint_trail.png
-::res://Scenes/Audio/::1753023376
+start.gd::GDScript::-1::1753123446::0::1::::<>Node<>::
+start.tscn::PackedScene::671508204962349538::1753128355::0::1::::<><>::res://Scenes/start.gd<>uid://c444dtm50kikd::::res://Scenes/Sprites/fonts/FingerPaint-Regular.ttf<>uid://oxqd5o1ddbej::::res://Scenes/Sprites/images/ram-s-head-white-hollyhock-hills-1935.jpg!Large.jpg<>uid://b468q4e5j73p7::::res://Scenes/Audio/chromavolley title.wav<>uid://dpwis30e680yb::::res://Scenes/Sprites/buttons.png<>uid://cu2ogk6puyt4k::::res://Scenes/Sprites/buttons_hover.png
+trail.tscn::PackedScene::6272971212443741341::1753043887::0::1::::<><>::uid://cxg6tdocwgts8::::res://Scenes/Sprites/paint_trail.png
+::res://Scenes/Audio/::1753047644
 chromavolley sfx.wav::AudioStreamWAV::5503723612935788832::1751647666::1751647805::1::::<><>::
 chromavolley title.wav::AudioStreamWAV::4487926623768417118::1751925525::1751932348::1::::<><>::
 chromavolley_4.wav::AudioStreamWAV::9205337612498124861::1753022221::1753023376::1::::<><>::
-chromavolley_failure.wav::AudioStreamWAV::1216535587513559522::1751649210::1751649219::1::::<><>::
+chromavolley_failure.wav::AudioStreamWAV::1216535587513559522::1751649210::1753047644::1::::<><>::
 chromavolley_success.wav::AudioStreamWAV::454875797681051269::1751319206::1751319711::1::::<><>::
-::res://Scenes/Models/::1751224407
+finished.png::CompressedTexture2D::5212808385221783454::1753032869::1753032870::1::::<><>::
+::res://Scenes/Models/::1753127489
 alley_scene.glb::PackedScene::2113025504474297950::1751051176::1751051359::1::::<><>::uid://cj4qlj0n6815::::res://Scenes/Models/alley_scene_alley_diffuse.png<>uid://gyrl4bbdmck1::::res://Scenes/Models/alley_scene_alley_roughness.png<>uid://16qnq7nehwru::::res://Scenes/Models/alley_scene_alley_norm.png<>uid://dg7wo2m36n6f0::::res://Scenes/Models/alley_scene_wall_diffuse.png<>uid://v8c6ejf7byd::::res://Scenes/Models/alley_scene_wall_rough.png<>uid://bp5hgo32vbrc5::::res://Scenes/Models/alley_scene_wall_normal.png<>uid://727myruky7e::::res://Scenes/Models/alley_scene_can_diffuse.png<>uid://dqaik252ri6bk::::res://Scenes/Models/alley_scene_can_rough.png<>uid://cjode5d2xxagi::::res://Scenes/Models/alley_scene_lid_diffuse.png<>uid://burnqx41ct7c0::::res://Scenes/Models/alley_scene_lid_rough.png<>uid://cag3h644qh71r::::res://Scenes/Models/alley_scene_frame_diffuse.png
 alley_scene_alley_diffuse.png::CompressedTexture2D::160747045369915326::1750715517::1750715528::1::::<><>::
 alley_scene_alley_norm.png::CompressedTexture2D::1889901222573372742::1750715516::1750715528::1::::<><>::
@@ -45,7 +46,7 @@ alley_scene_Image_9.png::CompressedTexture2D::1892539254125353411::1750715525::1
 alley_scene_lid_diffuse.png::CompressedTexture2D::5433633124432563356::1750715525::1750715528::1::::<><>::
 alley_scene_lid_rough.png::CompressedTexture2D::3826111125902366229::1750715526::1750715528::1::::<><>::
 alley_scene_wall_diffuse.png::CompressedTexture2D::7647817413975213207::1750715522::1750715528::1::::<><>::
-alley_scene_wall_normal.png::CompressedTexture2D::3501621184434478942::1750715519::1750715528::1::::<><>::
+alley_scene_wall_normal.png::CompressedTexture2D::3501621184434478942::1750715519::1753127489::1::::<><>::
 alley_scene_wall_rough.png::CompressedTexture2D::45360800004290727::1750715523::1750715528::1::::<><>::
 gallery_scene.glb::PackedScene::1253514273531656813::1751224405::1751224407::1::::<><>::uid://db14se83d8se::::res://Scenes/Models/gallery_scene_wall_diffuse.png<>uid://gq5hk5f2rk5e::::res://Scenes/Models/gallery_scene_floor_diffuse.png<>uid://b3c07uqf18kvq::::res://Scenes/Models/gallery_scene_floor_normal.png<>uid://c4sdjivu05iop::::res://Scenes/Models/gallery_scene_frame_diffuse.png<>uid://d1trdw7imdttq::::res://Scenes/Models/gallery_scene_frame_rough.png<>uid://bts2ndmxrjmk3::::res://Scenes/Models/gallery_scene_pillar_diffuse.png<>uid://bahyqup8ku135::::res://Scenes/Models/gallery_scene_pillar_rough.png<>uid://dvw5a1ihtdmhr::::res://Scenes/Models/gallery_scene_pillar_norm.png
 gallery_scene_floor_diffuse.png::CompressedTexture2D::455997688075051776::1751214410::1751214413::1::::<><>::

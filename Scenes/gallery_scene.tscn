@@ -1,16 +1,40 @@
-[gd_scene load_steps=10 format=3 uid="uid://bivri5voh8fm3"]
+[gd_scene load_steps=15 format=3 uid="uid://bivri5voh8fm3"]
 
 [ext_resource type="PackedScene" uid="uid://r4hgxwx2svdt" path="res://Scenes/Models/gallery_scene.glb" id="1_vfhj7"]
 [ext_resource type="Script" path="res://Scenes/gallery_scene.gd" id="2_7jl23"]
+[ext_resource type="Texture2D" uid="uid://bts2ndmxrjmk3" path="res://Scenes/Models/gallery_scene_pillar_diffuse.png" id="3_f26r8"]
 [ext_resource type="Texture2D" uid="uid://dpwis30e680yb" path="res://Scenes/Sprites/buttons.png" id="3_jqd6x"]
 [ext_resource type="Texture2D" uid="uid://cu2ogk6puyt4k" path="res://Scenes/Sprites/buttons_hover.png" id="4_gjfkc"]
+[ext_resource type="Texture2D" uid="uid://dvw5a1ihtdmhr" path="res://Scenes/Models/gallery_scene_pillar_norm.png" id="4_qi8a2"]
 [ext_resource type="FontFile" uid="uid://c444dtm50kikd" path="res://Scenes/Sprites/fonts/FingerPaint-Regular.ttf" id="5_5uiyq"]
+[ext_resource type="Texture2D" uid="uid://bahyqup8ku135" path="res://Scenes/Models/gallery_scene_pillar_rough.png" id="5_xq16c"]
 [ext_resource type="AudioStream" uid="uid://gql0dbt6hpht" path="res://Scenes/Audio/chromavolley_success.wav" id="6_ucoh5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_emot4"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_px0e5"]
+resource_name = "pillar"
+cull_mode = 2
+albedo_texture = ExtResource("3_f26r8")
+metallic_specular = 0.0
+normal_texture = ExtResource("4_qi8a2")
+texture_filter = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_40kox"]
+resource_name = "pillar"
+cull_mode = 2
+albedo_texture = ExtResource("3_f26r8")
+metallic_texture = ExtResource("5_xq16c")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("5_xq16c")
+roughness_texture_channel = 1
+normal_texture = ExtResource("4_qi8a2")
+texture_filter = 2
+
 [sub_resource type="Environment" id="Environment_v1eth"]
-background_energy_multiplier = 7.02
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.29
 
 [sub_resource type="LabelSettings" id="LabelSettings_y2rea"]
 font = ExtResource("5_5uiyq")
@@ -34,14 +58,22 @@ transform = Transform3D(0, 2.14475, 0, -1.73473, 0, 0, 0, 0, 4.06002, 0, 0, 0)
 [node name="canvas" parent="painting_frame_01" index="0"]
 surface_material_override/0 = SubResource("StandardMaterial3D_emot4")
 
+[node name="pagoda_pillar" parent="." index="4"]
+surface_material_override/0 = SubResource("StandardMaterial3D_px0e5")
+
+[node name="pagoda_pillar_001" parent="." index="5"]
+surface_material_override/0 = SubResource("StandardMaterial3D_40kox")
+
 [node name="Camera3D" type="Camera3D" parent="." index="6"]
 transform = Transform3D(-0.266868, 0, 0.963733, 0, 1, 0, -0.963733, 0, -0.266868, 1.59813, 0.853135, -0.349375)
 environment = SubResource("Environment_v1eth")
 current = true
 
 [node name="SpotLight3D" type="SpotLight3D" parent="." index="7"]
-transform = Transform3D(0.96933, -1.07427e-08, 0.245764, -0.245764, -4.23707e-08, 0.96933, -3.38101e-16, -1, -4.37114e-08, 1.00048, 3.2113, 0)
-light_energy = 4.57
+transform = Transform3D(0.96933, -1.07427e-08, 0.245764, -0.245764, -4.23707e-08, 0.96933, -3.38101e-16, -1, -4.37113e-08, 1.00048, 3.2113, 0)
+light_energy = 8.173
+spot_angle = 59.88
+spot_angle_attenuation = 2.92817
 
 [node name="MainMenu2" type="TextureButton" parent="." index="8"]
 z_index = 1

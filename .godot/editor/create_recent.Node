@@ -1,3 +1,7 @@
+DirectionalLight3D
+Control
+Label
+TextureRect
 AudioStreamPlayer
 ColorRect
 AudioStreamPlayer3D
@@ -5,10 +9,7 @@ SpotLight3D
 Camera3D
 AnimationPlayer
 Node2D
-TextureRect
 SubViewport
 SubViewportContainer
 WorldEnvironment
 TextureButton
-Node
-Label
